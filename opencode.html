@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KT OpenCode 下载 | 内部软件下载</title>
+  <link rel="icon" href="./assets/favicon.svg?v=nav-1" type="image/svg+xml">
+  <link rel="icon" href="./assets/favicon-32.png?v=nav-1" type="image/png" sizes="32x32">
+  <link rel="icon" href="./assets/favicon-192.png?v=nav-1" type="image/png" sizes="192x192">
+  <link rel="shortcut icon" href="./favicon.ico?v=nav-1" type="image/x-icon">
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png?v=nav-1">
+  <style>
+    :root {
+      --page: #f4f7f1;
+      --surface: #ffffff;
+      --surface-soft: #eef5e9;
+      --ink: #202936;
+      --muted: #667085;
+      --line: #d8e2d1;
+      --primary: #1f7a5c;
+      --primary-dark: #13543f;
+      --blue: #2f6fdd;
+      --blue-soft: #dce9ff;
+      --gold: #d98b16;
+      --gold-soft: #f8e2bd;
+      --shadow: 0 12px 32px rgba(38, 65, 47, 0.08);
+      --radius: 8px;
+      --font-main: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: var(--font-main);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(217, 139, 22, 0.12), transparent 28%),
+        radial-gradient(circle at 92% 8%, rgba(47, 111, 221, 0.10), transparent 24%),
+        linear-gradient(180deg, var(--page), #eaf1e5);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 18px 0 48px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 8px 0 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--primary);
+      box-shadow: 0 10px 24px rgba(31, 122, 92, 0.22);
+    }
+
+    .brand-mark img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .brand-copy strong,
+    .brand-copy span {
+      display: block;
+    }
+
+    .brand-copy strong {
+      font-size: 18px;
+    }
+
+    .brand-copy span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--primary-dark);
+      font-weight: 700;
+      white-space: nowrap;
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      border-color: rgba(31, 122, 92, 0.45);
+      background: #ffffff;
+    }
+
+    .hero {
+      padding: 28px;
+      border: 1px solid rgba(216, 226, 209, 0.95);
+      border-radius: 16px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(238, 245, 233, 0.92));
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      color: var(--primary-dark);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 36px);
+      line-height: 1.2;
+    }
+
+    .hero .lead {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--primary-dark);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .meta-chip.blue {
+      background: var(--blue-soft);
+      color: #1d4fad;
+    }
+
+    .meta-chip.gold {
+      background: var(--gold-soft);
+      color: #8a5a08;
+    }
+
+    .section {
+      margin-top: 22px;
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    .download-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .download-card {
+      display: grid;
+      gap: 14px;
+      padding: 20px;
+      border: 1px solid rgba(216, 226, 209, 0.95);
+      border-radius: 14px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .download-card h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .download-card p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .os-badge {
+      flex-shrink: 0;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--primary-dark);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 28px;
+    }
+
+    .os-badge.blue {
+      background: var(--blue-soft);
+      color: #1d4fad;
+    }
+
+    .os-badge.gold {
+      background: var(--gold-soft);
+      color: #8a5a08;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: var(--radius);
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 800;
+      box-shadow: 0 10px 22px rgba(31, 122, 92, 0.22);
+      transition: transform 160ms ease, background 160ms ease;
+    }
+
+    .download-btn:hover,
+    .download-btn:focus-visible {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .download-btn.secondary {
+      background: #ffffff;
+      color: var(--primary-dark);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .download-btn.secondary:hover,
+    .download-btn.secondary:focus-visible {
+      background: var(--surface-soft);
+      border-color: rgba(31, 122, 92, 0.45);
+    }
+
+    .file-meta {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .tips,
+    .note {
+      padding: 18px 20px;
+      border: 1px solid rgba(216, 226, 209, 0.95);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: var(--shadow);
+    }
+
+    .tips ol,
+    .note ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .tips li + li,
+    .note li + li {
+      margin-top: 4px;
+    }
+
+    .note code {
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: var(--surface-soft);
+      color: var(--primary-dark);
+      font-size: 12px;
+    }
+
+    .footer-note {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 640px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero {
+        padding: 22px 18px;
+      }
+
+      .card-top {
+        flex-direction: column;
+      }
+
+      .download-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="返回导航首页">
+        <span class="brand-mark">
+          <img src="./assets/favicon.svg?v=nav-1" alt="">
+        </span>
+        <span class="brand-copy">
+          <strong>Portal Hub</strong>
+          <span>内部软件下载</span>
+        </span>
+      </a>
+      <a class="back-link" href="./index.html">← 返回导航</a>
+    </header>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="eyebrow">内部 AI 工具 · 不属于核心产品</div>
+      <h1 id="page-title">KT OpenCode 下载</h1>
+      <p class="lead">
+        这是公司内部用的 AI 编程工具，不是对外核心产品。
+        不用注册 GitHub，也不用翻发布页。选好自己的电脑系统，点一次就能下载安装包。
+      </p>
+      <div class="meta-row">
+        <span class="meta-chip">当前版本 <span id="currentVersion">最新版</span></span>
+        <span class="meta-chip blue">免 GitHub 登录</span>
+        <span class="meta-chip gold">Windows / macOS</span>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="download-title">
+      <h2 id="download-title">选择你的电脑</h2>
+      <div class="download-grid">
+        <article class="download-card">
+          <div class="card-top">
+            <div>
+              <h3>Windows 电脑</h3>
+              <p>大多数普通 Windows 笔记本 / 台式机，点下面按钮下载后双击安装即可。</p>
+            </div>
+            <span class="os-badge">Windows</span>
+          </div>
+          <div class="actions">
+            <a class="download-btn" data-download="windows-x64" href="https://download.ktai.im/kt-opencode-desktop/latest/windows-x64.exe">
+              下载 Windows 安装包
+            </a>
+          </div>
+          <p class="file-meta" data-file-meta="windows-x64">文件：windows-x64.exe</p>
+        </article>
+
+        <article class="download-card">
+          <div class="card-top">
+            <div>
+              <h3>苹果电脑（Apple 芯片）</h3>
+              <p>近几年的 MacBook / iMac 多数是 M1 / M2 / M3 / M4 芯片，优先选这个。</p>
+            </div>
+            <span class="os-badge blue">Mac Apple 芯片</span>
+          </div>
+          <div class="actions">
+            <a class="download-btn" data-download="macos-arm64" href="https://download.ktai.im/kt-opencode-desktop/latest/macos-arm64.pkg">
+              下载 Mac 安装包
+            </a>
+          </div>
+          <p class="file-meta" data-file-meta="macos-arm64">文件：macos-arm64.pkg</p>
+        </article>
+
+        <article class="download-card">
+          <div class="card-top">
+            <div>
+              <h3>苹果电脑（Intel 芯片）</h3>
+              <p>较老的 Mac 可能是 Intel 芯片。如果上面 Apple 芯片版本打不开，再试这个。</p>
+            </div>
+            <span class="os-badge gold">Mac Intel</span>
+          </div>
+          <div class="actions">
+            <a class="download-btn" data-download="macos-x64" href="https://download.ktai.im/kt-opencode-desktop/latest/macos-x64.pkg">
+              下载 Mac Intel 安装包
+            </a>
+          </div>
+          <p class="file-meta" data-file-meta="macos-x64">文件：macos-x64.pkg</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="help-title">
+      <h2 id="help-title">怎么选、怎么装</h2>
+      <div class="tips">
+        <ol>
+          <li><strong>Windows 用户</strong>：直接点「下载 Windows 安装包」，下载完成后双击 <code>.exe</code> 安装。如果弹出 SmartScreen /「Windows 已保护你的电脑」，选「更多信息 → 仍要运行」。</li>
+          <li><strong>Mac 用户不知道自己是哪种芯片</strong>：点左上角苹果图标 →「关于本机」→ 看「芯片」或「处理器」。写着 Apple M 系列就选 Apple 芯片；写着 Intel 就选 Intel。</li>
+          <li><strong>Mac 安装</strong>：打开下载的 <code>.pkg</code>，按提示完成安装。如果系统提示「无法验证开发者」，到「系统设置 → 隐私与安全性」里选择仍要打开。</li>
+          <li><strong>下载比较慢或失败</strong>：换网络重试一次；仍不行请联系技术同事协助。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="note-title">
+      <h2 id="note-title">说明</h2>
+      <div class="note">
+        <ul>
+          <li>本页按钮直接连到公司 CDN，不需要注册或登录 GitHub。</li>
+          <li>当前版本：<strong>KT OpenCode <span id="noteVersion">最新版</span></strong>，页面会自动读取最新版本号。</li>
+          <li>以后发新版本不用改本页链接，按钮始终下载最新安装包。</li>
+          <li>当前安装包尚未签名 / 公证，Windows SmartScreen 或 macOS Gatekeeper 可能弹出安全提示，按上面的步骤继续即可。</li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      入口地址：导航站搜索「OpenCode」或「下载」，或直接打开本页。
+      返回全部常用入口请点右上角「返回导航」。
+    </p>
+  </main>
+  <script>
+    const MANIFEST_URL = "https://download.ktai.im/kt-opencode-desktop/latest.json";
+    const FALLBACK_URLS = {
+      "windows-x64": "https://download.ktai.im/kt-opencode-desktop/latest/windows-x64.exe",
+      "macos-arm64": "https://download.ktai.im/kt-opencode-desktop/latest/macos-arm64.pkg",
+      "macos-x64": "https://download.ktai.im/kt-opencode-desktop/latest/macos-x64.pkg"
+    };
+
+    function formatSize(bytes) {
+      if (!Number.isFinite(bytes) || bytes <= 0) return "";
+      const mb = bytes / (1024 * 1024);
+      return `约 ${mb >= 10 ? Math.round(mb) : mb.toFixed(1)} MB`;
+    }
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function applyManifest(manifest) {
+      const version = manifest && manifest.version ? String(manifest.version) : "";
+      if (version) {
+        setText("currentVersion", version);
+        setText("noteVersion", version);
+      }
+
+      const downloads = (manifest && manifest.downloads) || {};
+      Object.keys(FALLBACK_URLS).forEach((key) => {
+        const item = downloads[key] || {};
+        const link = document.querySelector(`[data-download="${key}"]`);
+        const meta = document.querySelector(`[data-file-meta="${key}"]`);
+        const url = item.url || FALLBACK_URLS[key];
+        if (link) link.setAttribute("href", url);
+        if (meta) {
+          const filename = item.filename || url.split("/").pop();
+          const sizeText = formatSize(item.size);
+          meta.textContent = sizeText ? `文件：${filename} · ${sizeText}` : `文件：${filename}`;
+        }
+      });
+    }
+
+    fetch(MANIFEST_URL, { cache: "no-store" })
+      .then((response) => {
+        if (!response.ok) throw new Error("manifest request failed");
+        return response.json();
+      })
+      .then(applyManifest)
+      .catch(() => {
+        setText("currentVersion", "最新版");
+        setText("noteVersion", "最新版");
+      });
+  </script>
+</body>
+</html>

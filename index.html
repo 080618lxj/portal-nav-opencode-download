@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Hub | 常用网站导航</title>
+  <link rel="icon" href="./assets/favicon.svg?v=nav-1" type="image/svg+xml">
+  <link rel="icon" href="./assets/favicon-32.png?v=nav-1" type="image/png" sizes="32x32">
+  <link rel="icon" href="./assets/favicon-192.png?v=nav-1" type="image/png" sizes="192x192">
+  <link rel="shortcut icon" href="./favicon.ico?v=nav-1" type="image/x-icon">
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png?v=nav-1">
+  <style>
+    :root {
+      --page: #f4f7f1;
+      --surface: #ffffff;
+      --surface-soft: #eef5e9;
+      --ink: #202936;
+      --muted: #667085;
+      --line: #d8e2d1;
+      --primary: #1f7a5c;
+      --primary-dark: #13543f;
+      --blue: #2f6fdd;
+      --blue-soft: #dce9ff;
+      --gold: #d98b16;
+      --gold-soft: #f8e2bd;
+      --danger-soft: #f7e4e4;
+      --danger: #9b3b3b;
+      --shadow: 0 12px 32px rgba(38, 65, 47, 0.08);
+      --radius: 8px;
+      --font-main: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: var(--font-main);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(217, 139, 22, 0.12), transparent 28%),
+        radial-gradient(circle at 92% 8%, rgba(47, 111, 221, 0.10), transparent 24%),
+        linear-gradient(180deg, var(--page), #eaf1e5);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .shell {
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 18px 0 34px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 8px 0 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--primary);
+      box-shadow: 0 10px 24px rgba(31, 122, 92, 0.22);
+    }
+
+    .brand-mark img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .brand-copy,
+    .brand-copy strong,
+    .brand-copy span {
+      display: block;
+    }
+
+    .brand-copy {
+      min-width: 0;
+    }
+
+    .brand-copy strong {
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .brand-copy span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .top-actions {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .auth-panel {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .auth-status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 0 12px;
+      border: 1px solid rgba(216, 226, 209, 0.95);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .auth-status[data-viewer="internal"] {
+      border-color: rgba(31, 122, 92, 0.28);
+      background: rgba(238, 245, 233, 0.95);
+      color: var(--primary-dark);
+    }
+
+    .auth-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid rgba(31, 122, 92, 0.28);
+      border-radius: var(--radius);
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+
+    .auth-btn:hover,
+    .auth-btn:focus-visible {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .auth-btn.secondary {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--primary-dark);
+      border-color: rgba(31, 122, 92, 0.28);
+    }
+
+    .auth-btn.secondary:hover,
+    .auth-btn.secondary:focus-visible {
+      background: #ffffff;
+      border-color: rgba(31, 122, 92, 0.5);
+    }
+
+    .auth-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .visibility-banner {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 14px;
+      padding: 12px 14px;
+      border: 1px solid rgba(31, 122, 92, 0.18);
+      border-radius: calc(var(--radius) + 2px);
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      box-shadow: 0 8px 22px rgba(38, 65, 47, 0.05);
+    }
+
+    .visibility-banner.show {
+      display: flex;
+    }
+
+    .visibility-banner strong {
+      color: var(--ink);
+    }
+
+    .login-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(24, 36, 28, 0.42);
+      backdrop-filter: blur(6px);
+    }
+
+    .login-modal.show {
+      display: flex;
+    }
+
+    .login-dialog {
+      width: min(100%, 420px);
+      max-height: min(92vh, 760px);
+      overflow: auto;
+      border: 1px solid rgba(216, 226, 209, 0.95);
+      border-radius: calc(var(--radius) + 6px);
+      background: #ffffff;
+      box-shadow: 0 24px 60px rgba(24, 40, 28, 0.22);
+      padding: 20px;
+    }
+
+    .login-dialog h2 {
+      margin: 0 0 6px;
+      font-size: 20px;
+    }
+
+    .login-dialog .login-lead {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .login-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .login-tab {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #f7faf5;
+      color: var(--muted);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .login-tab.active {
+      border-color: rgba(31, 122, 92, 0.45);
+      background: rgba(238, 245, 233, 0.95);
+      color: var(--primary-dark);
+    }
+
+    .login-pane {
+      display: none;
+    }
+
+    .login-pane.active {
+      display: block;
+    }
+
+    .login-field {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .login-field label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .login-field input {
+      min-height: 42px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .login-field input:focus {
+      outline: none;
+      border-color: rgba(31, 122, 92, 0.58);
+      box-shadow: 0 0 0 3px rgba(31, 122, 92, 0.13);
+    }
+
+    .login-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    .login-error {
+      display: none;
+      margin: 0 0 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      background: var(--danger-soft);
+      color: var(--danger);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .login-error.show {
+      display: block;
+    }
+
+    .telegram-box {
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .telegram-code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: var(--radius);
+      background: rgba(238, 245, 233, 0.95);
+      color: var(--primary-dark);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .telegram-qr {
+      width: 180px;
+      height: 180px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      object-fit: contain;
+    }
+
+    .telegram-meta {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .login-close {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+
+    .login-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .search-wrap {
+      display: grid;
+      width: min(100%, 620px);
+      grid-template-columns: minmax(320px, 1fr) auto;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 4px;
+      border: 1px solid rgba(216, 226, 209, 0.9);
+      border-radius: calc(var(--radius) + 4px);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 10px 28px rgba(38, 65, 47, 0.07);
+      backdrop-filter: blur(10px);
+    }
+
+    .search-field {
+      position: relative;
+      min-width: 0;
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      left: 13px;
+      width: 17px;
+      height: 17px;
+      color: #8a9a8d;
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
+
+    .search,
+    .clear-btn,
+    .filter-btn {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.78);
+      outline: none;
+    }
+
+    .search {
+      width: 100%;
+      min-height: 40px;
+      padding: 0 14px 0 40px;
+      border-color: transparent;
+      background: #ffffff;
+      color: var(--ink);
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .search:focus {
+      border-color: rgba(31, 122, 92, 0.58);
+      box-shadow: 0 0 0 3px rgba(31, 122, 92, 0.13);
+    }
+
+    .clear-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 40px;
+      padding: 0 13px;
+      color: var(--primary-dark);
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .clear-btn:hover,
+    .clear-btn:focus-visible,
+    .filter-btn:hover,
+    .filter-btn:focus-visible {
+      border-color: rgba(31, 122, 92, 0.45);
+      background: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .clear-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.52;
+      transform: none;
+    }
+
+    .search-wrap .clear-btn {
+      border-color: transparent;
+      background: var(--surface-soft);
+      color: #466456;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 12px;
+      align-items: stretch;
+      margin-top: 2px;
+    }
+
+    .hero-copy,
+    .hero-aside,
+    .summary {
+      border: 1px solid rgba(216, 226, 209, 0.9);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-copy {
+      padding: 22px 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: var(--primary-dark);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 6px var(--gold-soft);
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(26px, 2.75vw, 36px);
+      line-height: 1.12;
+      letter-spacing: 0;
+      text-wrap: pretty;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+      text-wrap: pretty;
+    }
+
+    .hero-aside {
+      display: grid;
+      align-content: center;
+      gap: 10px;
+      padding: 18px;
+    }
+
+    .overview-item {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .overview-value {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      border-radius: var(--radius);
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1;
+      background: var(--primary);
+      text-shadow: 0 1px 2px rgba(18, 42, 34, 0.32);
+    }
+
+    .overview-item:nth-child(2) .overview-value {
+      background: var(--blue);
+    }
+
+    .overview-item:nth-child(3) .overview-value {
+      background: var(--gold);
+    }
+
+    .overview-item strong,
+    .overview-item span {
+      display: block;
+    }
+
+    .overview-item strong {
+      margin-top: 2px;
+      font-size: 15px;
+    }
+
+    .overview-item span {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .overview-item .overview-value {
+      display: grid;
+      place-items: center;
+      margin-top: 0;
+      color: #ffffff;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0 14px;
+    }
+
+    .filter-btn {
+      min-height: 34px;
+      padding: 0 12px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn:focus-visible {
+      border-color: rgba(31, 122, 92, 0.4);
+      color: var(--primary-dark);
+    }
+
+    .filter-btn.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 900;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 20px 0 12px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 21px;
+      letter-spacing: 0;
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .recent-section {
+      margin-top: 6px;
+    }
+
+    .recent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .recent-card {
+      min-height: 178px;
+      padding: 14px;
+    }
+
+    .recent-card h3 {
+      margin-top: 12px;
+      font-size: 17px;
+    }
+
+    .recent-card p {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .recent-empty {
+      padding: 16px;
+      text-align: left;
+    }
+
+    .site-groups {
+      display: grid;
+      gap: 22px;
+    }
+
+    .site-group {
+      scroll-margin-top: 16px;
+    }
+
+    .group-title {
+      margin: 0 0 10px;
+      padding-top: 2px;
+    }
+
+    .group-title h3 {
+      margin: 0;
+    }
+
+    .group-toggle {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      min-height: 36px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .group-toggle::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      z-index: 20;
+      padding: 9px 13px;
+      border-radius: 6px;
+      background: #4b5565;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+      box-shadow: 0 10px 22px rgba(32, 41, 54, 0.3);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-4px);
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .group-toggle::before {
+      content: "";
+      position: absolute;
+      top: calc(100% + 5px);
+      right: 15px;
+      z-index: 21;
+      width: 0;
+      height: 0;
+      border-right: 7px solid transparent;
+      border-bottom: 8px solid #4b5565;
+      border-left: 7px solid transparent;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-4px);
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .group-toggle:hover::before,
+    .group-toggle:focus-visible::before,
+    .group-toggle:hover::after,
+    .group-toggle:focus-visible::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .group-toggle:focus-visible {
+      border-radius: var(--radius);
+      outline: 3px solid rgba(31, 122, 92, 0.18);
+      outline-offset: 4px;
+    }
+
+    .group-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .group-name::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 8px;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--primary);
+      box-shadow: 0 0 0 4px rgba(31, 122, 92, 0.08);
+    }
+
+    .group-meta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .group-chevron {
+      display: grid;
+      width: 24px;
+      height: 24px;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--primary-dark);
+      transition: background 160ms ease;
+    }
+
+    .group-chevron svg {
+      width: 15px;
+      height: 15px;
+      transition: transform 160ms ease;
+    }
+
+    .group-toggle:hover .group-chevron,
+    .group-toggle:focus-visible .group-chevron {
+      background: #dcebdd;
+    }
+
+    .site-group.is-collapsed .group-grid {
+      display: none;
+    }
+
+    .site-group.is-collapsed .group-chevron svg {
+      transform: rotate(-90deg);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 12px;
+    }
+
+    .site-card {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 164px;
+      min-width: 0;
+      overflow: hidden;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 8px 20px rgba(40, 67, 49, 0.06);
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .site-card:hover,
+    .site-card:focus-visible {
+      border-color: rgba(31, 122, 92, 0.42);
+      box-shadow: 0 14px 30px rgba(40, 67, 49, 0.10);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .site-card.inactive {
+      cursor: not-allowed;
+      opacity: 0.76;
+    }
+
+    .site-card.inactive:hover,
+    .site-card.inactive:focus-visible {
+      border-color: var(--line);
+      box-shadow: 0 8px 20px rgba(40, 67, 49, 0.06);
+      transform: none;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-head.no-logo {
+      justify-content: flex-end;
+      min-height: 52px;
+    }
+
+    .site-icon {
+      display: grid;
+      width: 52px;
+      height: 52px;
+      place-items: center;
+      padding: 4px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(216, 226, 209, 0.86);
+      background: #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+    }
+
+    .site-icon img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      margin: auto;
+      object-fit: contain;
+    }
+
+    .site-icon img[hidden] {
+      display: none;
+    }
+
+    .badge {
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--primary-dark);
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .site-card[data-tone="blue"] .badge {
+      background: var(--blue-soft);
+      color: #204d9d;
+    }
+
+    .site-card[data-tone="gold"] .badge {
+      background: var(--gold-soft);
+      color: #7a4a07;
+    }
+
+    .site-card.inactive .badge {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .site-card h3 {
+      margin: 12px 0 6px;
+      font-size: 18px;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .site-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      text-wrap: pretty;
+    }
+
+    .card-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 13px;
+      color: var(--primary-dark);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .recent-card .card-foot {
+      align-items: flex-end;
+    }
+
+    .open-link,
+    .pending-link,
+    .copy-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      border-radius: var(--radius);
+      white-space: nowrap;
+    }
+
+    .open-link,
+    .pending-link {
+      justify-content: flex-start;
+      gap: 8px;
+      min-width: 0;
+      color: var(--primary-dark);
+    }
+
+    .open-link span:first-child,
+    .pending-link span:first-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .open-link {
+      padding-right: 4px;
+    }
+
+    .pending-link {
+      color: var(--muted);
+    }
+
+    .copy-link {
+      gap: 6px;
+      padding: 0 9px;
+      border: 1px solid rgba(216, 226, 209, 0.92);
+      background: rgba(238, 245, 233, 0.82);
+      color: #466456;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: color 160ms ease, border-color 160ms ease, background 160ms ease, transform 160ms ease;
+    }
+
+    .copy-link svg {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 auto;
+    }
+
+    .copy-link:hover,
+    .copy-link:focus-visible {
+      border-color: rgba(31, 122, 92, 0.38);
+      background: #ffffff;
+      color: var(--primary-dark);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .copy-link:disabled {
+      cursor: not-allowed;
+      opacity: 0.56;
+      transform: none;
+    }
+
+    .copy-link.copied {
+      border-color: rgba(31, 122, 92, 0.34);
+      background: rgba(31, 122, 92, 0.1);
+      color: var(--primary-dark);
+    }
+
+    .arrow {
+      display: grid;
+      width: 26px;
+      height: 26px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--surface-soft);
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .open-link:hover .arrow,
+    .open-link:focus-visible .arrow {
+      background: #dcebdd;
+      transform: translateX(2px);
+    }
+
+    .empty {
+      display: none;
+      padding: 24px;
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .empty.show {
+      display: block;
+    }
+
+    .summary {
+      margin-top: 20px;
+      padding: 18px;
+    }
+
+    .summary h2 {
+      margin: 0 0 12px;
+      font-size: 20px;
+    }
+
+    .summary ul {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .summary a {
+      color: var(--primary-dark);
+      font-weight: 900;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .summary code {
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: var(--surface-soft);
+      color: var(--primary-dark);
+      font-size: 0.92em;
+    }
+
+    @media (max-width: 860px) {
+      .topbar {
+        flex-wrap: wrap;
+      }
+
+      .top-actions {
+        width: 100%;
+        flex-wrap: wrap;
+      }
+
+      .search-wrap {
+        flex: 1;
+        grid-template-columns: minmax(180px, 1fr) auto;
+      }
+
+      .auth-panel {
+        width: 100%;
+        justify-content: flex-end;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        padding: 22px;
+      }
+
+      .hero-aside {
+        min-height: 220px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        width: min(100% - 18px, 1240px);
+        padding-top: 10px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .top-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .search-wrap {
+        width: 100%;
+        grid-template-columns: 1fr auto;
+      }
+
+      .auth-panel {
+        width: 100%;
+        justify-content: stretch;
+      }
+
+      .auth-status,
+      .auth-btn {
+        flex: 1;
+      }
+
+      .visibility-banner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero-copy {
+        padding: 18px;
+      }
+
+      .lead {
+        font-size: 14px;
+      }
+
+      .hero-aside {
+        display: none;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="返回首页">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="./assets/favicon.svg?v=nav-1" alt="">
+        </span>
+        <span class="brand-copy">
+          <strong>Portal Hub</strong>
+          <span>团队常用网站统一入口</span>
+        </span>
+      </a>
+      <div class="top-actions">
+        <div class="search-wrap">
+          <div class="search-field">
+            <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <input class="search" id="searchInput" type="search" placeholder="搜索平台、环境或关键词..." aria-label="搜索站点">
+          </div>
+          <button class="clear-btn" type="button" id="clearSearch">重置</button>
+        </div>
+        <div class="auth-panel" id="authPanel">
+          <span class="auth-status" id="authStatus" data-viewer="public">公开访客</span>
+          <button class="auth-btn" type="button" id="authActionBtn">登录</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="visibility-banner show" id="visibilityBanner" role="status">
+      <span id="visibilityBannerText">当前为公开访客视图，只展示可对客入口。登录 KT Identity 后可查看完整导航。</span>
+    </div>
+
+    <div class="login-modal" id="loginModal" aria-hidden="true">
+      <div class="login-dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+        <div class="login-header">
+          <div>
+            <h2 id="loginTitle">登录 KT Identity</h2>
+            <p class="login-lead">使用公司账号密码，或 Telegram 一键登录。登录后按身份展示内部入口。</p>
+          </div>
+          <button class="login-close" type="button" id="loginCloseBtn" aria-label="关闭登录框">×</button>
+        </div>
+
+        <div class="login-tabs" role="tablist" aria-label="登录方式">
+          <button class="login-tab active" type="button" data-login-tab="password" id="tabPassword">账号密码</button>
+          <button class="login-tab" type="button" data-login-tab="telegram" id="tabTelegram">Telegram</button>
+        </div>
+
+        <p class="login-error" id="loginError" role="alert"></p>
+
+        <div class="login-pane active" id="panePassword" data-login-pane="password">
+          <form id="passwordLoginForm">
+            <div class="login-field">
+              <label for="loginNameInput">账号</label>
+              <input id="loginNameInput" name="loginName" type="text" autocomplete="username" placeholder="邮箱 / 用户名 / 账号号" required>
+            </div>
+            <div class="login-field">
+              <label for="loginPasswordInput">密码</label>
+              <input id="loginPasswordInput" name="password" type="password" autocomplete="current-password" placeholder="登录密码" required>
+            </div>
+            <div class="login-actions">
+              <button class="auth-btn secondary" type="button" id="loginCancelBtn">取消</button>
+              <button class="auth-btn" type="submit" id="passwordLoginBtn">登录</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="login-pane" id="paneTelegram" data-login-pane="telegram">
+          <div class="telegram-box" id="telegramBox">
+            <div class="telegram-meta" id="telegramStatus">点击下方按钮开始 Telegram 登录。</div>
+            <div class="telegram-code" id="telegramCode" hidden>—</div>
+            <img class="telegram-qr" id="telegramQr" alt="Telegram 登录二维码" hidden>
+            <div class="telegram-meta" id="telegramHint" hidden>请在 Telegram 中核对校验码后再确认。</div>
+            <div class="login-actions" style="width:100%; justify-content:center;">
+              <button class="auth-btn secondary" type="button" id="telegramOpenBtn" hidden>在本机 Telegram 打开</button>
+              <button class="auth-btn" type="button" id="telegramStartBtn">开始 Telegram 登录</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <div class="eyebrow">团队常用站点集中入口</div>
+        <h1 id="page-title">内部平台、研发工具和 AI 服务，一页直达。</h1>
+        <p class="lead">按团队实际工作场景整理常用入口：AI 平台、支付、邮箱、代理 IP、研发环境、效率工具、核心产品和外部 AI 服务。公开访客只看公开入口，内部登录后看全部。</p>
+      </div>
+
+      <div class="hero-aside" aria-label="站点概览">
+        <div class="overview-item">
+          <span class="overview-value">1</span>
+          <span><strong>常用入口</strong><span>覆盖团队日常访问站点</span></span>
+        </div>
+        <div class="overview-item">
+          <span class="overview-value">2</span>
+          <span><strong>业务分类</strong><span>按工作场景快速定位</span></span>
+        </div>
+        <div class="overview-item">
+          <span class="overview-value">3</span>
+          <span><strong>构建依赖</strong><span>纯静态页面，直接预览</span></span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="filters" aria-label="站点分类筛选" id="filters"></nav>
+
+    <section class="recent-section" aria-labelledby="recent-title">
+      <div class="section-title">
+        <h2 id="recent-title">最新打开</h2>
+        <div class="section-actions">
+          <span id="recentCount"></span>
+          <button class="clear-btn" type="button" id="clearRecent">清空记录</button>
+        </div>
+      </div>
+
+      <div class="recent-grid" id="recentGrid"></div>
+      <div class="empty recent-empty" id="recentEmpty">暂无最新打开记录。</div>
+    </section>
+
+    <section aria-labelledby="sites-title">
+      <div class="section-title">
+        <h2 id="sites-title">常用入口</h2>
+        <span id="resultCount"></span>
+      </div>
+
+      <div class="site-groups" id="siteGrid"></div>
+      <div class="empty" id="emptyState">没有找到匹配的站点，可以换一个关键词或切回“全部”。</div>
+    </section>
+
+    <section class="summary" aria-labelledby="summary-title">
+      <h2 id="summary-title">维护说明</h2>
+      <ul>
+        <li>点卡片，就能打开对应的网站。</li>
+        <li>找不到时，可以用上面的搜索框。</li>
+        <li>点分类按钮，可以只看某一类网站。</li>
+        <li>“最新打开”会记录你刚用过的网站。</li>
+        <li>这些记录只保存在你的浏览器里。</li>
+        <li>要加新网站，改页面里的 <code>sites</code> 列表即可。</li>
+        <li>入口可用 <code>visibility: "public" | "internal"</code> 控制谁能看到；没写就当内部。</li>
+        <li>登录走 KT Identity（账号密码 / Telegram），token 仅保存在当前浏览器会话。</li>
+        <li>页面仓库：<a href="https://github.com/KTAIorg/portal-nav" target="_blank" rel="noopener">GitHub / KTAIorg / portal-nav</a>。</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    const categories = [
+      { id: "all", label: "全部" },
+      { id: "product", label: "核心产品" },
+      { id: "internal-ai", label: "AI 平台" },
+      { id: "payment", label: "支付平台" },
+      { id: "mail", label: "邮箱服务" },
+      { id: "proxy", label: "代理 IP" },
+      { id: "dev", label: "研发相关" },
+      { id: "tool", label: "工具相关" },
+      { id: "external-ai", label: "外部 AI" },
+    ];
+
+    // visibility: "public" | "internal"
+    // 未写 visibility 时按 internal 处理（安全优先）
+    const sites = [
+      { title: "KT OpenCode 下载", badge: "内部 AI 工具", icon: "OC", tone: "green", categories: ["tool"], visibility: "internal", url: "./opencode.html", action: "打开下载页", keywords: "kt opencode open code 下载 安装包 windows mac 客户端 ai 编程 内部工具 非技术", description: "公司内部 AI 编程工具下载页。不属于核心产品，不用 GitHub，按 Windows / Mac 从公司 CDN 一键下载最新安装包。" },
+      { title: "OpenLess 下载", badge: "内部 AI 工具", icon: "OL", tone: "blue", categories: ["tool"], visibility: "internal", url: "./openless.html", action: "打开下载页", keywords: "openless 语言输入 语音输入 下载 安装包 mac 内部工具", description: "公司内部语音输入工具下载页。不属于核心产品。Mac Apple 芯片可直接下载，不用 GitHub。" },
+      { title: "NewAPI", badge: "生产环境", icon: "NA", tone: "green", categories: ["internal-ai"], visibility: "internal", url: "https://ktapi.cc/login", action: "进入生产", keywords: "newapi 生产环境 ktapi ai 平台 模型", description: "公司 AI 平台生产环境入口，用于日常模型服务配置和生产环境管理。" },
+      { title: "NewAPI 灰度", badge: "灰度环境", icon: "NA", tone: "blue", categories: ["internal-ai"], visibility: "internal", url: "https://newapi-ack.ktapi.cc", action: "进入灰度", keywords: "newapi 灰度环境 ack ktapi ai 平台", description: "NewAPI 灰度环境入口，用于上线前验证、配置检查和灰度发布确认。" },
+      { title: "NewAPI 测试", badge: "测试环境", icon: "NA", tone: "gold", categories: ["internal-ai"], visibility: "internal", url: "https://newapi-test.ktyun.cc", action: "进入测试", keywords: "newapi 测试环境 ktyun ai 平台", description: "NewAPI 测试环境入口，用于功能调试、接口测试和非生产验证。" },
+      { title: "Sub2API", badge: "中转平台", icon: "S2", tone: "green", categories: ["internal-ai"], visibility: "internal", url: "https://sub2api.ktyun.cc/", action: "进入平台", keywords: "sub2api 中转平台 ai api ktyun", description: "API 中转平台入口，便于统一管理订阅、转发和模型服务接入。" },
+      { title: "KTpay", badge: "生产环境", icon: "KP", tone: "gold", categories: ["payment"], visibility: "internal", url: "https://ktpay.ktcloud.cc", action: "进入生产", keywords: "ktpay 生产环境 支付 ktcloud", description: "公司支付平台生产环境入口，用于查看和处理正式支付相关业务。" },
+      { title: "KTpay 测试", badge: "测试环境", icon: "KP", tone: "blue", categories: ["payment"], visibility: "internal", url: "https://ktpay.ktyun.cc", action: "进入测试", keywords: "ktpay 测试环境 支付 ktyun", description: "支付平台测试环境入口，用于支付流程验证、接口联调和测试数据检查。" },
+      { title: "CloudMail", badge: "邮箱服务", icon: "CM", tone: "green", categories: ["mail"], visibility: "internal", url: "https://mail.ktyun.cc", action: "打开邮箱", keywords: "cloudmail 邮箱 邮件 ktyun", description: "公司邮箱服务入口，用于邮件收发、通知查看和账号相关邮件处理。" },
+      { title: "Resend", badge: "邮件 API", icon: "RE", tone: "blue", categories: ["mail"], visibility: "internal", url: "https://resend.com", action: "打开平台", keywords: "resend email api 邮件 服务", description: "邮件 API 服务平台，适合查看事务邮件发送、域名配置和投递状态。" },
+      { title: "Rola-IP Console", badge: "代理 IP", icon: "IP", tone: "gold", categories: ["proxy"], visibility: "internal", url: "https://console.rola-ip.co/", action: "打开控制台", keywords: "rola ip 代理ip proxy console", description: "代理 IP 控制台入口，用于查看代理资源、配置和相关使用情况。" },
+      { title: "GitHub", badge: "代码协作", icon: "GH", tone: "blue", categories: ["dev"], visibility: "internal", url: "https://github.com/", action: "进入 GitHub", keywords: "github git 代码 仓库 协作 pull request issue", description: "代码仓库、提交历史、Pull Request、Issue 和团队协作入口。" },
+      { title: "ArgoCD", badge: "部署", icon: "CD", tone: "green", categories: ["dev"], visibility: "internal", url: "https://argocd.ktai.cc/", action: "打开 ArgoCD", keywords: "argocd ktai 部署 研发 devops k8s", description: "公司持续部署平台入口，用于查看应用部署状态、同步和发布情况。" },
+      { title: "国际阿里云", badge: "云服务", icon: "AC", tone: "gold", categories: ["dev"], visibility: "internal", url: "https://www.alibabacloud.com/", action: "打开官网", keywords: "alibaba cloud 国际阿里云 云服务 研发", description: "Alibaba Cloud 国际站入口，用于云资源、账号、服务和基础设施相关工作。" },
+      { title: "Typeless", badge: "语音输入", icon: "TY", tone: "green", categories: ["tool"], visibility: "internal", url: "https://www.typeless.com/", action: "打开工具", keywords: "typeless ai 语音输入 工具", description: "AI 语音输入工具，适合快速记录沟通内容、整理需求和提高输入效率。" },
+      { title: "Snipaste", badge: "截图工具", icon: "SP", tone: "blue", categories: ["tool"], visibility: "internal", url: "https://www.snipaste.com/", action: "打开官网", keywords: "snipaste 截图 工具 screenshot", description: "截图和贴图工具，适合标注问题、记录页面状态和沟通视觉细节。" },
+      { title: "Wave", badge: "终端工具", icon: "WV", tone: "gold", categories: ["tool"], visibility: "internal", url: "https://www.waveterm.dev/", action: "打开官网", keywords: "wave waveterm terminal 终端 工具", description: "现代终端工具，适合命令行工作、文件查看和 AI 辅助开发流程。" },
+      { title: "Otty", badge: "终端工具", icon: "OT", tone: "green", categories: ["tool"], visibility: "internal", url: "https://otty.sh/", action: "打开官网", keywords: "otty terminal 终端 工具", description: "终端工具入口，适合补充命令行工作流和远程终端相关操作。" },
+      { title: "Fork", badge: "Git 工具", icon: "FK", tone: "blue", categories: ["tool"], visibility: "internal", url: "https://git-fork.com/", action: "打开官网", keywords: "fork git 可视化 工具 client", description: "Git 可视化客户端，适合查看分支、提交历史、diff 和处理代码版本管理。" },
+      { title: "KT智能拓客后台", badge: "后台", icon: "KT", tone: "green", categories: ["product"], visibility: "internal", url: "https://kt8899.org/", action: "进入后台", keywords: "kt智能拓客 后台 kt8899 核心产品", description: "公司核心产品后台入口，用于管理 KT 智能拓客相关业务和配置。" },
+      { title: "KT智能拓客官网", badge: "官网生产", icon: "KT", tone: "blue", categories: ["product"], visibility: "public", url: "https://www.ktai.im/", action: "打开官网", keywords: "kt智能拓客 官网 生产环境 ktai", description: "KT 智能拓客官网生产环境入口，用于查看正式对外展示页面。" },
+      { title: "KT智能拓客测试站", badge: "官网测试", icon: "KT", tone: "gold", categories: ["product"], visibility: "internal", url: "https://test.ktai.im/", action: "打开测试站", keywords: "kt智能拓客 官网 测试环境 test ktai", description: "KT 智能拓客官网测试环境入口，用于上线前页面检查和功能验证。" },
+      { title: "ChatGPT", badge: "对话助手", icon: "G", tone: "gold", categories: ["external-ai"], visibility: "internal", url: "https://chatgpt.com/", action: "打开站点", keywords: "chatgpt openai ai 对话 写作 总结", description: "OpenAI 的 AI 对话入口，适合问答、写作、总结、代码辅助和方案分析。" },
+      { title: "OpenRouter", badge: "模型路由", icon: "OR", tone: "green", categories: ["external-ai"], visibility: "internal", url: "https://openrouter.ai/", action: "打开平台", keywords: "openrouter ai model router api 模型 中转", description: "多模型 API 聚合入口，适合测试不同模型、查看模型价格和统一接入。" },
+      { title: "Codex", badge: "AI 编程", icon: "CX", tone: "green", categories: ["external-ai"], visibility: "internal", url: "https://openai.com/codex/", action: "进入官网", keywords: "codex openai 编程 代码 代理 官方", description: "OpenAI 的 AI 编程助手入口，可用于代码阅读、修改、提交和工程任务协助。" },
+      { title: "OpenAI Platform", badge: "模型 API", icon: "OA", tone: "blue", categories: ["external-ai"], visibility: "internal", url: "https://platform.openai.com/docs", action: "查看文档", keywords: "openai platform api docs model gpt embedding", description: "OpenAI API 文档入口，适合查看模型调用、工具调用、Embedding 和 SDK 用法。" },
+      { title: "Cursor", badge: "AI IDE", icon: "CU", tone: "blue", categories: ["external-ai"], visibility: "internal", url: "https://cursor.com/", action: "打开官网", keywords: "cursor ai ide 编程 编辑器 代码", description: "AI 编程编辑器，适合在项目里直接补代码、改 bug、理解文件和重构模块。" },
+      { title: "豆包", badge: "国内 AI", icon: "DB", tone: "gold", categories: ["external-ai"], visibility: "internal", url: "https://www.doubao.com/", action: "打开站点", keywords: "豆包 doubao 字节跳动 ai 对话 国内", description: "字节跳动旗下 AI 助手，适合中文问答、写作、搜索、图片和视频生成。" },
+      { title: "千问", badge: "国内 AI", icon: "QW", tone: "green", categories: ["external-ai"], visibility: "internal", url: "https://www.qianwen.com/", action: "打开站点", keywords: "千问 qianwen 通义 阿里 ai qwen 国内", description: "阿里官方 AI 助手入口，适合中文搜索、总结、PPT、图片生成和办公场景。" },
+      { title: "Claude", badge: "AI 平台", icon: "CL", tone: "green", categories: ["external-ai"], visibility: "internal", url: "https://claude.ai/", action: "打开站点", keywords: "claude anthropic ai 对话 写作 分析", description: "Anthropic 的 AI 对话平台，适合长文本理解、写作、分析和代码解释。" },
+      { title: "Claude Code", badge: "AI 编程", icon: "CC", tone: "blue", categories: ["external-ai"], visibility: "internal", url: "https://www.anthropic.com/product/claude-code", action: "进入官网", keywords: "claude code anthropic 编程 文档 官方", description: "Anthropic 的 Claude Code 官网，适合了解代码库协作和编程代理能力。" },
+      { title: "Gemini", badge: "Google", icon: "GM", tone: "gold", categories: ["external-ai"], visibility: "internal", url: "https://gemini.google.com/", action: "打开站点", keywords: "gemini google ai 对话 多模态", description: "Google 的 AI 助手入口，适合结合 Google 生态做内容、资料和多模态处理。" },
+    ];
+
+    const filters = document.querySelector("#filters");
+    const siteGrid = document.querySelector("#siteGrid");
+    const recentGrid = document.querySelector("#recentGrid");
+    const searchInput = document.querySelector("#searchInput");
+    const clearSearch = document.querySelector("#clearSearch");
+    const clearRecent = document.querySelector("#clearRecent");
+    const resultCount = document.querySelector("#resultCount");
+    const recentCount = document.querySelector("#recentCount");
+    const emptyState = document.querySelector("#emptyState");
+    const recentEmpty = document.querySelector("#recentEmpty");
+    const authStatus = document.querySelector("#authStatus");
+    const authActionBtn = document.querySelector("#authActionBtn");
+    const visibilityBanner = document.querySelector("#visibilityBanner");
+    const visibilityBannerText = document.querySelector("#visibilityBannerText");
+    const loginModal = document.querySelector("#loginModal");
+    const loginCloseBtn = document.querySelector("#loginCloseBtn");
+    const loginCancelBtn = document.querySelector("#loginCancelBtn");
+    const loginError = document.querySelector("#loginError");
+    const passwordLoginForm = document.querySelector("#passwordLoginForm");
+    const loginNameInput = document.querySelector("#loginNameInput");
+    const loginPasswordInput = document.querySelector("#loginPasswordInput");
+    const passwordLoginBtn = document.querySelector("#passwordLoginBtn");
+    const tabPassword = document.querySelector("#tabPassword");
+    const tabTelegram = document.querySelector("#tabTelegram");
+    const panePassword = document.querySelector("#panePassword");
+    const paneTelegram = document.querySelector("#paneTelegram");
+    const telegramStartBtn = document.querySelector("#telegramStartBtn");
+    const telegramOpenBtn = document.querySelector("#telegramOpenBtn");
+    const telegramStatus = document.querySelector("#telegramStatus");
+    const telegramCode = document.querySelector("#telegramCode");
+    const telegramQr = document.querySelector("#telegramQr");
+    const telegramHint = document.querySelector("#telegramHint");
+    const recentStorageKey = "portalHub.recentSites.v1";
+    const collapsedGroupsStorageKey = "portalHub.collapsedGroups.v1";
+    // Bearer 会话只放 sessionStorage；生产/本地都通过同源 /identity 反代访问 KT Identity
+    const sessionStorageKey = "portalNav.identitySession.v1";
+    const identityBaseUrl = "";
+    const maxRecentSites = 8;
+    let activeFilter = "all";
+    let currentViewer = "public"; // public | internal
+    let currentSession = null; // { token, account, roles, viewer }
+    let telegramPollTimer = null;
+    let telegramPopup = null;
+    let authBusy = false;
+
+    function normalize(value) {
+      return value.trim().toLowerCase();
+    }
+
+    function getSiteId(site) {
+      return `${site.title}-${site.url}`.toLowerCase().replace(/[^a-z0-9一-龥]+/g, "-").replace(/^-|-$/g, "");
+    }
+
+    function getSiteVisibility(site) {
+      return site.visibility === "public" ? "public" : "internal";
+    }
+
+    function canViewSite(site, viewer = currentViewer) {
+      if (viewer === "internal") return true;
+      return getSiteVisibility(site) === "public";
+    }
+
+    function getVisibleSites(viewer = currentViewer) {
+      return sites.filter((site) => canViewSite(site, viewer));
+    }
+
+    function getSiteById(siteId) {
+      return getVisibleSites().find((site) => getSiteId(site) === siteId);
+    }
+
+    function identityUrl(path) {
+      return `${identityBaseUrl}${path}`;
+    }
+
+    async function identityFetch(path, init = {}) {
+      const headers = {
+        Accept: "application/json",
+        ...(init.headers || {}),
+      };
+      if (init.body && !headers["Content-Type"]) {
+        headers["Content-Type"] = "application/json";
+      }
+      if (init.token) {
+        headers.Authorization = `Bearer ${init.token}`;
+      }
+
+      const response = await fetch(identityUrl(path), {
+        method: init.method || "GET",
+        headers,
+        body: init.body,
+        cache: "no-store",
+      });
+
+      const text = await response.text();
+      let data = null;
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch (error) {
+          data = { raw: text };
+        }
+      }
+
+      return { ok: response.ok, status: response.status, data };
+    }
+
+    function readSession() {
+      try {
+        const raw = sessionStorage.getItem(sessionStorageKey);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed.token !== "string" || !parsed.token) return null;
+        return parsed;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function writeSession(session) {
+      currentSession = session;
+      try {
+        if (session) {
+          sessionStorage.setItem(sessionStorageKey, JSON.stringify(session));
+        } else {
+          sessionStorage.removeItem(sessionStorageKey);
+        }
+      } catch (error) {
+        // ignore storage errors
+      }
+    }
+
+    function clearSession() {
+      writeSession(null);
+      currentViewer = "public";
+    }
+
+    function accountLabel(session = currentSession) {
+      const account = session?.account || {};
+      return account.displayName || account.accountNo || account.id || "已登录用户";
+    }
+
+    function isInternalFromRoles(roles) {
+      if (!Array.isArray(roles) || roles.length === 0) return false;
+      const normalized = roles.map((role) => String(role || "").trim().toUpperCase());
+      return normalized.some((role) => (
+        role === "ADMIN"
+        || role === "OPERATOR"
+        || role === "FINANCE"
+        || role === "VIEWER"
+        || role.includes("ADMIN")
+        || role.includes("OPERATOR")
+        || role.includes("INTERNAL")
+        || role.includes("MEMBER")
+      ));
+    }
+
+    function decideViewer(session) {
+      if (!session?.token) return "public";
+      // V1：已登录且有账号，默认内部可见。
+      // 若后续要更严，可改为仅 isInternalFromRoles(session.roles) 才 internal。
+      if (Array.isArray(session.roles) && session.roles.length > 0) {
+        return isInternalFromRoles(session.roles) ? "internal" : "public";
+      }
+      return session.account?.id ? "internal" : "public";
+    }
+
+    function setLoginError(message) {
+      if (!loginError) return;
+      if (!message) {
+        loginError.textContent = "";
+        loginError.classList.remove("show");
+        return;
+      }
+      loginError.textContent = message;
+      loginError.classList.add("show");
+    }
+
+    function stopTelegramPolling() {
+      if (telegramPollTimer) {
+        window.clearInterval(telegramPollTimer);
+        telegramPollTimer = null;
+      }
+      if (telegramPopup && !telegramPopup.closed) {
+        try { telegramPopup.close(); } catch (error) { /* ignore */ }
+      }
+      telegramPopup = null;
+    }
+
+    function setLoginTab(tab) {
+      const isPassword = tab !== "telegram";
+      tabPassword?.classList.toggle("active", isPassword);
+      tabTelegram?.classList.toggle("active", !isPassword);
+      panePassword?.classList.toggle("active", isPassword);
+      paneTelegram?.classList.toggle("active", !isPassword);
+      if (isPassword) stopTelegramPolling();
+    }
+
+    function openLoginModal() {
+      if (!loginModal) return;
+      setLoginError("");
+      setLoginTab("password");
+      loginModal.classList.add("show");
+      loginModal.setAttribute("aria-hidden", "false");
+      window.setTimeout(() => loginNameInput?.focus(), 30);
+    }
+
+    function closeLoginModal() {
+      if (!loginModal) return;
+      stopTelegramPolling();
+      setLoginError("");
+      loginModal.classList.remove("show");
+      loginModal.setAttribute("aria-hidden", "true");
+      if (passwordLoginForm) passwordLoginForm.reset();
+      if (telegramStatus) telegramStatus.textContent = "点击下方按钮开始 Telegram 登录。";
+      if (telegramCode) {
+        telegramCode.hidden = true;
+        telegramCode.textContent = "—";
+      }
+      if (telegramQr) {
+        telegramQr.hidden = true;
+        telegramQr.removeAttribute("src");
+      }
+      if (telegramHint) telegramHint.hidden = true;
+      if (telegramOpenBtn) telegramOpenBtn.hidden = true;
+      if (telegramStartBtn) telegramStartBtn.textContent = "开始 Telegram 登录";
+    }
+
+    function applyViewerState() {
+      updateAuthUi();
+      createFilterButtons();
+      createSiteGroups();
+      updateCards();
+    }
+
+    function setViewer(viewer, options = {}) {
+      currentViewer = viewer === "internal" ? "internal" : "public";
+      if (options.session !== undefined) {
+        writeSession(options.session);
+      }
+      applyViewerState();
+    }
+
+    function updateAuthUi() {
+      const isInternal = currentViewer === "internal";
+      const loggedIn = Boolean(currentSession?.token);
+      const label = accountLabel();
+
+      if (authStatus) {
+        authStatus.dataset.viewer = currentViewer;
+        if (!loggedIn) {
+          authStatus.textContent = "公开访客";
+        } else if (isInternal) {
+          authStatus.textContent = label;
+        } else {
+          authStatus.textContent = `${label}（无内部权限）`;
+        }
+      }
+
+      if (authActionBtn) {
+        authActionBtn.disabled = authBusy;
+        if (!loggedIn) {
+          authActionBtn.textContent = "登录";
+          authActionBtn.classList.remove("secondary");
+        } else {
+          authActionBtn.textContent = "退出登录";
+          authActionBtn.classList.add("secondary");
+        }
+      }
+
+      if (visibilityBanner && visibilityBannerText) {
+        visibilityBanner.classList.add("show");
+        if (!loggedIn) {
+          visibilityBannerText.innerHTML = "当前为<strong>公开访客</strong>视图，只展示可对客入口。点击右上角「登录」使用 KT Identity 查看完整导航。";
+        } else if (isInternal) {
+          visibilityBannerText.innerHTML = `当前为<strong>内部成员</strong>视图（${escapeHtml(label)}），展示公开 + 内部全部入口。`;
+        } else {
+          visibilityBannerText.innerHTML = `已登录为 <strong>${escapeHtml(label)}</strong>，但当前账号没有内部导航权限，仍只展示公开入口。`;
+        }
+      }
+    }
+
+    async function fetchRoles(token) {
+      try {
+        const result = await identityFetch("/identity/v1/authz/permissions", { token });
+        if (!result.ok) return [];
+        return Array.isArray(result.data?.roles) ? result.data.roles : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    async function fetchAccountMe(token) {
+      const result = await identityFetch("/identity/v1/account/me", { token });
+      if (!result.ok) {
+        throw new Error(result.data?.message || result.data?.code || `account_me_failed_${result.status}`);
+      }
+      return result.data;
+    }
+
+    async function establishSession(token, accountHint) {
+      if (!token) throw new Error("登录未返回令牌");
+
+      let account = accountHint || null;
+      try {
+        const me = await fetchAccountMe(token);
+        if (me?.account) account = me.account;
+      } catch (error) {
+        if (!account) throw error;
+      }
+
+      const roles = await fetchRoles(token);
+      const session = {
+        token,
+        account: {
+          id: account?.id || "",
+          accountNo: account?.accountNo || "",
+          displayName: account?.displayName || "",
+        },
+        roles,
+      };
+      session.viewer = decideViewer(session);
+      setViewer(session.viewer, { session });
+      return session;
+    }
+
+    async function restoreSession() {
+      const stored = readSession();
+      if (!stored?.token) {
+        currentSession = null;
+        currentViewer = "public";
+        applyViewerState();
+        return;
+      }
+
+      try {
+        const result = await identityFetch("/identity/v1/auth/introspect", { token: stored.token });
+        if (!result.ok || !result.data?.active) {
+          clearSession();
+          applyViewerState();
+          return;
+        }
+
+        const roles = await fetchRoles(stored.token);
+        let account = stored.account || null;
+        try {
+          const me = await fetchAccountMe(stored.token);
+          if (me?.account) account = me.account;
+        } catch (error) {
+          // keep cached account
+        }
+
+        const session = {
+          token: stored.token,
+          account: {
+            id: account?.id || result.data?.accountId || "",
+            accountNo: account?.accountNo || result.data?.accountNo || "",
+            displayName: account?.displayName || "",
+          },
+          roles,
+        };
+        session.viewer = decideViewer(session);
+        setViewer(session.viewer, { session });
+      } catch (error) {
+        clearSession();
+        applyViewerState();
+      }
+    }
+
+    async function passwordLogin(loginName, password) {
+      const result = await identityFetch("/identity/v1/auth/login", {
+        method: "POST",
+        body: JSON.stringify({ loginName, password }),
+      });
+
+      if (result.status === 422 && (result.data?.code === "password_upgrade_required" || result.data?.error === "password_upgrade_required")) {
+        throw new Error("密码需要升级：请先在 KT 账户中心设置至少 8 位新密码后再登录。");
+      }
+      if (!result.ok) {
+        throw new Error(result.data?.message || result.data?.code || `登录失败（${result.status}）`);
+      }
+
+      const token = result.data?.token || result.data?.session?.token;
+      if (!token) throw new Error("登录成功但未返回令牌");
+      await establishSession(token, result.data?.account || null);
+    }
+
+    async function startTelegramLogin() {
+      stopTelegramPolling();
+      setLoginError("");
+      if (telegramStatus) telegramStatus.textContent = "正在创建 Telegram 登录请求…";
+      if (telegramStartBtn) {
+        telegramStartBtn.disabled = true;
+        telegramStartBtn.textContent = "创建中…";
+      }
+
+      try {
+        const result = await identityFetch("/identity/v1/auth/telegram/start", {
+          method: "POST",
+          body: JSON.stringify({ deviceLabel: "portal-nav" }),
+        });
+        if (!result.ok) {
+          throw new Error(result.data?.message || result.data?.code || `创建失败（${result.status}）`);
+        }
+
+        const challengeId = result.data?.challengeId || result.data?.id;
+        const displayCode = result.data?.displayCode || "—";
+        const qrUrl = result.data?.telegram?.qrUrl || "";
+        if (!challengeId) throw new Error("未返回 challengeId");
+
+        if (telegramCode) {
+          telegramCode.hidden = false;
+          telegramCode.textContent = displayCode;
+        }
+        if (telegramQr && qrUrl) {
+          telegramQr.hidden = false;
+          telegramQr.src = `https://quickchart.io/qr?size=180&margin=1&text=${encodeURIComponent(qrUrl)}`;
+          telegramQr.onerror = () => {
+            telegramQr.hidden = true;
+            if (telegramStatus) {
+              telegramStatus.textContent = "二维码加载失败，请直接点「在本机 Telegram 打开」。校验码：" + displayCode;
+            }
+          };
+        }
+        if (telegramHint) telegramHint.hidden = false;
+        if (telegramOpenBtn) {
+          telegramOpenBtn.hidden = !qrUrl;
+          telegramOpenBtn.onclick = () => {
+            if (!qrUrl) return;
+            telegramPopup = window.open(qrUrl, "_blank", "noopener,noreferrer");
+          };
+        }
+        if (telegramStatus) {
+          telegramStatus.textContent = "请用手机 Telegram 扫码，或点「在本机 Telegram 打开」。确认时请核对校验码。";
+        }
+        if (telegramStartBtn) telegramStartBtn.textContent = "重新发起";
+
+        telegramPollTimer = window.setInterval(async () => {
+          try {
+            const poll = await identityFetch(`/identity/v1/auth/telegram/poll/${encodeURIComponent(challengeId)}`);
+            if (!poll.ok) return;
+            const token = poll.data?.token || poll.data?.session?.token;
+            if (token) {
+              stopTelegramPolling();
+              if (telegramStatus) telegramStatus.textContent = "登录成功，正在进入…";
+              await establishSession(token, poll.data?.account || null);
+              closeLoginModal();
+              return;
+            }
+            const status = poll.data?.status;
+            if (status === "expired" || status === "denied" || status === "consumed") {
+              stopTelegramPolling();
+              setLoginError(status === "denied" ? "Telegram 登录已拒绝。" : "Telegram 登录已失效，请重新发起。");
+              if (telegramStatus) telegramStatus.textContent = "登录未完成，请重新发起。";
+            }
+          } catch (error) {
+            // keep polling on transient errors
+          }
+        }, 2000);
+      } catch (error) {
+        setLoginError(error.message || "Telegram 登录失败");
+        if (telegramStatus) telegramStatus.textContent = "创建失败，请重试。";
+      } finally {
+        if (telegramStartBtn) telegramStartBtn.disabled = false;
+      }
+    }
+
+    async function handleAuthAction() {
+      if (authBusy) return;
+      if (currentSession?.token) {
+        clearSession();
+        applyViewerState();
+        return;
+      }
+      openLoginModal();
+    }
+
+    function readRecentSites() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(recentStorageKey) || "[]");
+        if (!Array.isArray(stored)) return [];
+
+        return stored
+          .filter((item) => item && typeof item.id === "string" && getSiteById(item.id))
+          .slice(0, maxRecentSites);
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function writeRecentSites(items) {
+      try {
+        localStorage.setItem(recentStorageKey, JSON.stringify(items.slice(0, maxRecentSites)));
+      } catch (error) {
+        return false;
+      }
+
+      return true;
+    }
+
+    function readCollapsedGroups() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(collapsedGroupsStorageKey) || "[]");
+        if (!Array.isArray(stored)) return new Set();
+        return new Set(stored.filter((item) => typeof item === "string"));
+      } catch (error) {
+        return new Set();
+      }
+    }
+
+    function writeCollapsedGroups(groups) {
+      try {
+        localStorage.setItem(collapsedGroupsStorageKey, JSON.stringify([...groups]));
+      } catch (error) {
+        return false;
+      }
+
+      return true;
+    }
+
+    function setGroupCollapsed(group, isCollapsed) {
+      const button = group.querySelector(".group-toggle");
+      const label = button?.querySelector(".group-name")?.textContent.trim() || "分类";
+      const tooltip = isCollapsed ? "点击展开" : "点击折叠";
+      group.classList.toggle("is-collapsed", isCollapsed);
+      button?.setAttribute("aria-expanded", String(!isCollapsed));
+      button?.setAttribute("aria-label", `${tooltip} ${label}`);
+      if (button) button.dataset.tooltip = tooltip;
+    }
+
+    function rememberSite(siteId) {
+      if (!getSiteById(siteId)) return;
+
+      const nextItems = [
+        { id: siteId, openedAt: Date.now() },
+        ...readRecentSites().filter((item) => item.id !== siteId),
+      ];
+
+      if (writeRecentSites(nextItems)) {
+        renderRecentSites();
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    function getLogoSources(site) {
+      const sharedLogoSources = [
+        { match: /^NewAPI/, source: "https://ktapi.cc/", primary: "./assets/logos/newapi.png" },
+        { match: /^Sub2API/, source: "https://sub2api.ktyun.cc/", primary: "./assets/logos/sub2api.png" },
+        { match: /^KTpay/, source: "https://ktpay.ktcloud.cc/", primary: "./assets/logos/ktpay.png" },
+        { match: /^CloudMail/, source: "https://mail.ktyun.cc/", primary: "./assets/logos/cloudmail.ico" },
+        { match: /^Resend/, source: "https://resend.com/", primary: "./assets/logos/resend.ico" },
+        { match: /^Rola-IP/, source: "https://console.rola-ip.co/", primary: "./assets/logos/rola.svg" },
+        { match: /^GitHub/, source: "https://github.com/", primary: "./assets/logos/github.ico" },
+        { match: /^ArgoCD/, source: "https://argocd.ktai.cc/", primary: "./assets/logos/argocd.ico" },
+        { match: /^国际阿里云/, source: "https://www.alibabacloud.com/", primary: "./assets/logos/alibabacloud.ico" },
+        { match: /^Typeless/, source: "https://www.typeless.com/", primary: "./assets/logos/typeless.ico" },
+        { match: /^Snipaste/, source: "https://www.snipaste.com/", primary: "./assets/logos/snipaste.svg" },
+        { match: /^Wave/, source: "https://www.waveterm.dev/", primary: "./assets/logos/wave.ico" },
+        { match: /^Otty/, source: "https://otty.sh/", primary: "./assets/logos/otty.svg" },
+        { match: /^Fork/, source: "https://git-fork.com/", primary: "./assets/logos/fork.ico" },
+        { match: /^KT OpenCode/, source: "https://opencode.ai/", primary: "./assets/logos/openai.ico" },
+        { match: /^OpenLess/, source: "https://openless.top/", primary: "./assets/logos/typeless.ico" },
+        { match: /^KT智能拓客/, source: "https://www.ktai.im/", primary: "./assets/logos/ktai.png" },
+        { match: /^ChatGPT/, source: "https://chatgpt.com/", primary: "./assets/logos/chatgpt.webp" },
+        { match: /^OpenRouter/, source: "https://openrouter.ai/", primary: "./assets/logos/openrouter.ico" },
+        { match: /^Codex/, source: "https://openai.com/", primary: "./assets/logos/openai.ico" },
+        { match: /^OpenAI/, source: "https://openai.com/", primary: "./assets/logos/openai.ico" },
+        { match: /^Cursor/, source: "https://cursor.com/", primary: "./assets/logos/cursor.ico" },
+        { match: /^豆包/, source: "https://www.doubao.com/", primary: "./assets/logos/doubao.ico" },
+        { match: /^千问/, source: "https://www.qianwen.com/", primary: "./assets/logos/qianwen.png" },
+        { match: /^Claude/, source: "https://claude.ai/", primary: "./assets/logos/claude.ico" },
+        { match: /^Gemini/, source: "https://gemini.google.com/", primary: "./assets/logos/gemini.ico" },
+      ];
+      const matched = sharedLogoSources.find((item) => item.match.test(site.title));
+      const source = matched?.source || site.url;
+      if (!source) return "";
+
+      try {
+        const url = new URL(source);
+        return {
+          primary: matched?.primary || `https://icons.duckduckgo.com/ip3/${url.hostname}.ico`,
+          fallback: `https://www.google.com/s2/favicons?sz=64&domain_url=${encodeURIComponent(url.origin)}`,
+        };
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function createLogoMarkup(site) {
+      const logoSources = getLogoSources(site);
+      if (!logoSources) return "";
+
+      const title = escapeHtml(site.title);
+
+      return `
+        <span class="site-icon" aria-label="${title} logo">
+          <img src="${escapeHtml(logoSources.primary)}" data-fallback-src="${escapeHtml(logoSources.fallback)}" alt="" loading="eager" decoding="async" onerror="if (!this.dataset.fallbackTried && this.dataset.fallbackSrc) { this.dataset.fallbackTried = 'true'; this.src = this.dataset.fallbackSrc; } else { const head = this.closest('.card-head'); const icon = this.closest('.site-icon'); if (head) head.classList.add('no-logo'); if (icon) icon.remove(); }">
+        </span>
+      `;
+    }
+
+    function createCopyIcon() {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 9h9v11H9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      `;
+    }
+
+    function createSiteCard(site, options = {}) {
+      const inactive = site.url ? "" : " inactive";
+      const compact = options.compact ? " recent-card" : "";
+      const categoryText = site.categories.join(" ");
+      const searchableText = `${site.title} ${site.badge} ${site.description} ${site.keywords}`;
+      const siteId = getSiteId(site);
+      const title = escapeHtml(site.title);
+      const action = escapeHtml(site.action);
+      const url = escapeHtml(site.url);
+      const openAction = site.url
+        ? `<a class="open-link" href="${url}" target="_blank" rel="noopener" data-site-id="${siteId}"><span>${action}</span><span class="arrow">→</span></a>`
+        : `<span class="pending-link"><span>${action}</span><span class="arrow">·</span></span>`;
+      const copyAction = site.url
+        ? `<button class="copy-link" type="button" data-copy-url="${url}" aria-label="复制 ${title} 链接">${createCopyIcon()}<span>复制链接</span></button>`
+        : `<button class="copy-link" type="button" disabled aria-label="${title} 暂无可复制链接">${createCopyIcon()}<span>待补链接</span></button>`;
+      const logoMarkup = createLogoMarkup(site);
+
+      return `
+        <article class="site-card${compact}${inactive}" data-site-id="${siteId}" data-category="${escapeHtml(categoryText)}" data-tone="${escapeHtml(site.tone)}" data-search="${escapeHtml(searchableText)}">
+          <div class="card-head${logoMarkup ? "" : " no-logo"}">
+            ${logoMarkup}
+            <span class="badge">${escapeHtml(site.badge)}</span>
+          </div>
+          <div>
+            <h3>${title}</h3>
+            <p>${escapeHtml(site.description)}</p>
+          </div>
+          <div class="card-foot">${openAction}${copyAction}</div>
+        </article>
+      `;
+    }
+
+    function createFilterButtons() {
+      const visibleSites = getVisibleSites();
+      const availableCategoryIds = new Set(visibleSites.flatMap((site) => site.categories));
+
+      filters.innerHTML = categories
+        .filter((category) => category.id === "all" || availableCategoryIds.has(category.id))
+        .map((category) => (
+          `<button class="filter-btn${category.id === activeFilter ? " active" : ""}" type="button" data-filter="${category.id}">${category.label}</button>`
+        ))
+        .join("");
+
+      if (!filters.querySelector(`.filter-btn[data-filter="${activeFilter}"]`)) {
+        activeFilter = "all";
+        const allButton = filters.querySelector('.filter-btn[data-filter="all"]');
+        if (allButton) allButton.classList.add("active");
+      }
+    }
+
+    function createSiteGroups() {
+      const collapsedGroups = readCollapsedGroups();
+      const visibleSites = getVisibleSites();
+
+      siteGrid.innerHTML = categories
+        .filter((category) => category.id !== "all")
+        .map((category) => {
+          const groupSites = visibleSites.filter((site) => site.categories.includes(category.id));
+          if (!groupSites.length) return "";
+          const isCollapsed = collapsedGroups.has(category.id);
+          const panelId = `group-panel-${category.id}`;
+          const tooltip = isCollapsed ? "点击展开" : "点击折叠";
+
+          return `
+            <section class="site-group${isCollapsed ? " is-collapsed" : ""}" data-group="${category.id}" aria-labelledby="group-${category.id}">
+              <div class="group-title">
+                <h3 id="group-${category.id}">
+                  <button class="group-toggle" type="button" data-group-toggle="${category.id}" data-tooltip="${tooltip}" aria-label="${tooltip} ${escapeHtml(category.label)}" aria-expanded="${isCollapsed ? "false" : "true"}" aria-controls="${panelId}">
+                    <span class="group-name">${escapeHtml(category.label)}</span>
+                    <span class="group-meta">
+                      <span class="group-count">${groupSites.length} 个入口</span>
+                      <span class="group-chevron" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </span>
+                    </span>
+                  </button>
+                </h3>
+              </div>
+              <div class="grid group-grid" id="${panelId}">
+                ${groupSites.map((site) => createSiteCard(site)).join("")}
+              </div>
+            </section>
+          `;
+        })
+        .join("");
+    }
+
+    function getVisibleRecentSites() {
+      const query = normalize(searchInput.value);
+
+      return readRecentSites()
+        .map((item) => getSiteById(item.id))
+        .filter(Boolean)
+        .filter((site) => activeFilter === "all" || site.categories.includes(activeFilter))
+        .filter((site) => {
+          if (!query) return true;
+          return normalize(`${site.title} ${site.badge} ${site.description} ${site.keywords}`).includes(query);
+        });
+    }
+
+    function renderRecentSites() {
+      const recentSites = getVisibleRecentSites();
+      const hasStoredRecent = readRecentSites().length > 0;
+      const activeLabel = categories.find((category) => category.id === activeFilter)?.label || "当前分类";
+
+      recentGrid.innerHTML = recentSites.map((site) => createSiteCard(site, { compact: true })).join("");
+      recentCount.textContent = recentSites.length ? `${recentSites.length} 个记录` : "";
+      recentEmpty.textContent = hasStoredRecent && activeFilter !== "all"
+        ? `${activeLabel} 下暂无最新打开记录。`
+        : "暂无最新打开记录。";
+      recentEmpty.classList.toggle("show", recentSites.length === 0);
+      clearRecent.disabled = !hasStoredRecent;
+    }
+
+    function updateCards() {
+      const query = normalize(searchInput.value);
+      const cards = Array.from(siteGrid.querySelectorAll(".site-card"));
+      const groups = Array.from(siteGrid.querySelectorAll(".site-group"));
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const cardCategories = card.dataset.category.split(" ");
+        const text = normalize(card.dataset.search);
+        const matchFilter = activeFilter === "all" || cardCategories.includes(activeFilter);
+        const matchSearch = !query || text.includes(query);
+        const isVisible = matchFilter && matchSearch;
+
+        card.style.display = isVisible ? "grid" : "none";
+        if (isVisible) visibleCount += 1;
+      });
+
+      groups.forEach((group) => {
+        const visibleCards = Array.from(group.querySelectorAll(".site-card"))
+          .filter((card) => card.style.display !== "none");
+        const count = group.querySelector(".group-count");
+        if (count) count.textContent = `${visibleCards.length} 个入口`;
+        group.style.display = visibleCards.length ? "block" : "none";
+      });
+
+      const scopeLabel = currentViewer === "internal" ? "内部视图" : "公开视图";
+      resultCount.textContent = `${visibleCount} 个站点 · ${scopeLabel}`;
+      emptyState.textContent = currentViewer === "internal"
+        ? "没有找到匹配的站点，可以换一个关键词或切回“全部”。"
+        : "公开访客视图下没有匹配入口。可换关键词，或登录后查看完整导航。";
+      emptyState.classList.toggle("show", visibleCount === 0);
+      renderRecentSites();
+    }
+
+    async function copyText(value) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+        return true;
+      }
+
+      const input = document.createElement("textarea");
+      input.value = value;
+      input.setAttribute("readonly", "");
+      input.style.position = "fixed";
+      input.style.top = "-999px";
+      document.body.appendChild(input);
+      input.select();
+
+      try {
+        return document.execCommand("copy");
+      } finally {
+        document.body.removeChild(input);
+      }
+    }
+
+    function showCopyState(button, label) {
+      const text = button.querySelector("span");
+      const original = text.textContent;
+      text.textContent = label;
+      button.classList.add("copied");
+
+      window.setTimeout(() => {
+        text.textContent = original;
+        button.classList.remove("copied");
+      }, 1400);
+    }
+
+    createFilterButtons();
+    createSiteGroups();
+    renderRecentSites();
+    updateAuthUi();
+    restoreSession();
+
+    if (authActionBtn) {
+      authActionBtn.addEventListener("click", () => {
+        handleAuthAction();
+      });
+    }
+
+    tabPassword?.addEventListener("click", () => setLoginTab("password"));
+    tabTelegram?.addEventListener("click", () => setLoginTab("telegram"));
+    loginCloseBtn?.addEventListener("click", closeLoginModal);
+    loginCancelBtn?.addEventListener("click", closeLoginModal);
+    loginModal?.addEventListener("click", (event) => {
+      if (event.target === loginModal) closeLoginModal();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && loginModal?.classList.contains("show")) {
+        closeLoginModal();
+      }
+    });
+
+    passwordLoginForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (authBusy) return;
+      setLoginError("");
+      authBusy = true;
+      updateAuthUi();
+      if (passwordLoginBtn) {
+        passwordLoginBtn.disabled = true;
+        passwordLoginBtn.textContent = "登录中…";
+      }
+      try {
+        await passwordLogin(loginNameInput?.value?.trim() || "", loginPasswordInput?.value || "");
+        closeLoginModal();
+      } catch (error) {
+        setLoginError(error.message || "登录失败");
+      } finally {
+        authBusy = false;
+        if (passwordLoginBtn) {
+          passwordLoginBtn.disabled = false;
+          passwordLoginBtn.textContent = "登录";
+        }
+        updateAuthUi();
+      }
+    });
+
+    telegramStartBtn?.addEventListener("click", () => {
+      startTelegramLogin();
+    });
+
+    siteGrid.addEventListener("click", (event) => {
+      const button = event.target.closest(".group-toggle[data-group-toggle]");
+      if (!button) return;
+
+      const group = button.closest(".site-group");
+      if (!group) return;
+
+      const collapsedGroups = readCollapsedGroups();
+      const groupId = button.dataset.groupToggle;
+      const shouldCollapse = !group.classList.contains("is-collapsed");
+
+      setGroupCollapsed(group, shouldCollapse);
+      if (shouldCollapse) {
+        collapsedGroups.add(groupId);
+      } else {
+        collapsedGroups.delete(groupId);
+      }
+      writeCollapsedGroups(collapsedGroups);
+    });
+
+    filters.addEventListener("click", (event) => {
+      const button = event.target.closest(".filter-btn");
+      if (!button) return;
+
+      activeFilter = button.dataset.filter;
+      document.querySelectorAll(".filter-btn").forEach((item) => {
+        item.classList.toggle("active", item === button);
+      });
+      updateCards();
+    });
+
+    searchInput.addEventListener("input", updateCards);
+    clearSearch.addEventListener("click", () => {
+      searchInput.value = "";
+      searchInput.focus();
+      updateCards();
+    });
+
+    document.addEventListener("click", async (event) => {
+      const copyButton = event.target.closest(".copy-link[data-copy-url]");
+      if (copyButton) {
+        try {
+          await copyText(copyButton.dataset.copyUrl);
+          showCopyState(copyButton, "已复制");
+        } catch (error) {
+          showCopyState(copyButton, "复制失败");
+        }
+
+        return;
+      }
+
+      const openLink = event.target.closest(".open-link[data-site-id]");
+      if (!openLink) return;
+
+      rememberSite(openLink.dataset.siteId);
+    });
+
+    clearRecent.addEventListener("click", () => {
+      localStorage.removeItem(recentStorageKey);
+      renderRecentSites();
+    });
+
+    updateCards();
+  </script>
+</body>
+</html>
