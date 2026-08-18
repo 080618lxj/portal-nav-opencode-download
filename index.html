@@ -1296,7 +1296,7 @@
       <div class="hero-copy">
         <div class="eyebrow">团队常用站点集中入口</div>
         <h1 id="page-title">内部平台、研发工具和 AI 服务，一页直达。</h1>
-        <p class="lead">按团队实际工作场景整理常用入口：AI 平台、支付、邮箱、代理 IP、研发环境、效率工具、核心产品和外部 AI 服务。公开访客只看公开入口，内部登录后看全部。</p>
+        <p class="lead">按团队实际工作场景整理常用入口：公开产品、AI 平台、支付、邮箱、代理 IP、研发环境、效率工具和外部 AI 服务。公开访客可看对客产品与公开入口，内部登录后看全部。</p>
       </div>
 
       <div class="hero-aside" aria-label="站点概览">
@@ -1351,6 +1351,7 @@
         <li>要加新网站，改页面里的 <code>sites</code> 列表即可。</li>
         <li>入口可用 <code>visibility: "public" | "internal"</code> 控制谁能看到；没写就当内部。</li>
         <li>登录走 KT Identity（账号密码 / Telegram），token 仅保存在当前浏览器会话。</li>
+        <li>只有 Identity 内置角色 ADMIN / FINANCE / OPERATOR / VIEWER 才能看到内部入口。</li>
         <li>页面仓库：<a href="https://github.com/KTAIorg/portal-nav" target="_blank" rel="noopener">GitHub / KTAIorg / portal-nav</a>。</li>
       </ul>
     </section>
@@ -1372,38 +1373,38 @@
     // visibility: "public" | "internal"
     // 未写 visibility 时按 internal 处理（安全优先）
     const sites = [
-      { title: "KT OpenCode 下载", badge: "内部 AI 工具", icon: "OC", tone: "green", categories: ["tool"], visibility: "internal", url: "./opencode.html", action: "打开下载页", keywords: "kt opencode open code 下载 安装包 windows mac 客户端 ai 编程 内部工具 非技术", description: "公司内部 AI 编程工具下载页。不属于核心产品，不用 GitHub，按 Windows / Mac 从公司 CDN 一键下载最新安装包。" },
-      { title: "OpenLess 下载", badge: "内部 AI 工具", icon: "OL", tone: "blue", categories: ["tool"], visibility: "internal", url: "./openless.html", action: "打开下载页", keywords: "openless 语言输入 语音输入 下载 安装包 mac 内部工具", description: "公司内部语音输入工具下载页。不属于核心产品。Mac Apple 芯片可直接下载，不用 GitHub。" },
-      { title: "NewAPI", badge: "生产环境", icon: "NA", tone: "green", categories: ["internal-ai"], visibility: "internal", url: "https://ktapi.cc/login", action: "进入生产", keywords: "newapi 生产环境 ktapi ai 平台 模型", description: "公司 AI 平台生产环境入口，用于日常模型服务配置和生产环境管理。" },
+      { title: "NewAPI", badge: "生产环境", icon: "NA", tone: "green", categories: ["internal-ai"], visibility: "public", url: "https://ktapi.cc/login", action: "进入生产", keywords: "newapi 生产环境 ktapi ai 平台 模型", description: "公司 AI 平台生产环境入口，用于日常模型服务配置和生产环境管理。" },
       { title: "NewAPI 灰度", badge: "灰度环境", icon: "NA", tone: "blue", categories: ["internal-ai"], visibility: "internal", url: "https://newapi-ack.ktapi.cc", action: "进入灰度", keywords: "newapi 灰度环境 ack ktapi ai 平台", description: "NewAPI 灰度环境入口，用于上线前验证、配置检查和灰度发布确认。" },
       { title: "NewAPI 测试", badge: "测试环境", icon: "NA", tone: "gold", categories: ["internal-ai"], visibility: "internal", url: "https://newapi-test.ktyun.cc", action: "进入测试", keywords: "newapi 测试环境 ktyun ai 平台", description: "NewAPI 测试环境入口，用于功能调试、接口测试和非生产验证。" },
-      { title: "Sub2API", badge: "中转平台", icon: "S2", tone: "green", categories: ["internal-ai"], visibility: "internal", url: "https://sub2api.ktyun.cc/", action: "进入平台", keywords: "sub2api 中转平台 ai api ktyun", description: "API 中转平台入口，便于统一管理订阅、转发和模型服务接入。" },
-      { title: "KTpay", badge: "生产环境", icon: "KP", tone: "gold", categories: ["payment"], visibility: "internal", url: "https://ktpay.ktcloud.cc", action: "进入生产", keywords: "ktpay 生产环境 支付 ktcloud", description: "公司支付平台生产环境入口，用于查看和处理正式支付相关业务。" },
+      { title: "Sub2API", badge: "中转平台", icon: "S2", tone: "green", categories: ["internal-ai"], visibility: "public", url: "https://sub2api.ktyun.cc/", action: "进入平台", keywords: "sub2api 中转平台 ai api ktyun", description: "API 中转平台入口，便于统一管理订阅、转发和模型服务接入。" },
+      { title: "KTpay", badge: "生产环境", icon: "KP", tone: "gold", categories: ["payment"], visibility: "public", url: "https://ktpay.ktcloud.cc", action: "进入生产", keywords: "ktpay 生产环境 支付 ktcloud", description: "公司支付平台生产环境入口，用于查看和处理正式支付相关业务。" },
       { title: "KTpay 测试", badge: "测试环境", icon: "KP", tone: "blue", categories: ["payment"], visibility: "internal", url: "https://ktpay.ktyun.cc", action: "进入测试", keywords: "ktpay 测试环境 支付 ktyun", description: "支付平台测试环境入口，用于支付流程验证、接口联调和测试数据检查。" },
-      { title: "CloudMail", badge: "邮箱服务", icon: "CM", tone: "green", categories: ["mail"], visibility: "internal", url: "https://mail.ktyun.cc", action: "打开邮箱", keywords: "cloudmail 邮箱 邮件 ktyun", description: "公司邮箱服务入口，用于邮件收发、通知查看和账号相关邮件处理。" },
-      { title: "Resend", badge: "邮件 API", icon: "RE", tone: "blue", categories: ["mail"], visibility: "internal", url: "https://resend.com", action: "打开平台", keywords: "resend email api 邮件 服务", description: "邮件 API 服务平台，适合查看事务邮件发送、域名配置和投递状态。" },
-      { title: "Rola-IP Console", badge: "代理 IP", icon: "IP", tone: "gold", categories: ["proxy"], visibility: "internal", url: "https://console.rola-ip.co/", action: "打开控制台", keywords: "rola ip 代理ip proxy console", description: "代理 IP 控制台入口，用于查看代理资源、配置和相关使用情况。" },
-      { title: "GitHub", badge: "代码协作", icon: "GH", tone: "blue", categories: ["dev"], visibility: "internal", url: "https://github.com/", action: "进入 GitHub", keywords: "github git 代码 仓库 协作 pull request issue", description: "代码仓库、提交历史、Pull Request、Issue 和团队协作入口。" },
+      { title: "CloudMail", badge: "邮箱服务", icon: "CM", tone: "green", categories: ["mail"], visibility: "public", url: "https://mail.ktyun.cc", action: "打开邮箱", keywords: "cloudmail 邮箱 邮件 ktyun", description: "公司邮箱服务入口，用于邮件收发、通知查看和账号相关邮件处理。" },
+      { title: "Resend", badge: "邮件 API", icon: "RE", tone: "blue", categories: ["mail"], visibility: "public", url: "https://resend.com", action: "打开平台", keywords: "resend email api 邮件 服务", description: "邮件 API 服务平台，适合查看事务邮件发送、域名配置和投递状态。" },
+      { title: "Rola-IP Console", badge: "代理 IP", icon: "IP", tone: "gold", categories: ["proxy"], visibility: "public", url: "https://console.rola-ip.co/", action: "打开控制台", keywords: "rola ip 代理ip proxy console", description: "代理 IP 控制台入口，用于查看代理资源、配置和相关使用情况。" },
+      { title: "GitHub", badge: "代码协作", icon: "GH", tone: "blue", categories: ["dev"], visibility: "public", url: "https://github.com/", action: "进入 GitHub", keywords: "github git 代码 仓库 协作 pull request issue", description: "代码仓库、提交历史、Pull Request、Issue 和团队协作入口。" },
       { title: "ArgoCD", badge: "部署", icon: "CD", tone: "green", categories: ["dev"], visibility: "internal", url: "https://argocd.ktai.cc/", action: "打开 ArgoCD", keywords: "argocd ktai 部署 研发 devops k8s", description: "公司持续部署平台入口，用于查看应用部署状态、同步和发布情况。" },
       { title: "国际阿里云", badge: "云服务", icon: "AC", tone: "gold", categories: ["dev"], visibility: "internal", url: "https://www.alibabacloud.com/", action: "打开官网", keywords: "alibaba cloud 国际阿里云 云服务 研发", description: "Alibaba Cloud 国际站入口，用于云资源、账号、服务和基础设施相关工作。" },
-      { title: "Typeless", badge: "语音输入", icon: "TY", tone: "green", categories: ["tool"], visibility: "internal", url: "https://www.typeless.com/", action: "打开工具", keywords: "typeless ai 语音输入 工具", description: "AI 语音输入工具，适合快速记录沟通内容、整理需求和提高输入效率。" },
-      { title: "Snipaste", badge: "截图工具", icon: "SP", tone: "blue", categories: ["tool"], visibility: "internal", url: "https://www.snipaste.com/", action: "打开官网", keywords: "snipaste 截图 工具 screenshot", description: "截图和贴图工具，适合标注问题、记录页面状态和沟通视觉细节。" },
-      { title: "Wave", badge: "终端工具", icon: "WV", tone: "gold", categories: ["tool"], visibility: "internal", url: "https://www.waveterm.dev/", action: "打开官网", keywords: "wave waveterm terminal 终端 工具", description: "现代终端工具，适合命令行工作、文件查看和 AI 辅助开发流程。" },
-      { title: "Otty", badge: "终端工具", icon: "OT", tone: "green", categories: ["tool"], visibility: "internal", url: "https://otty.sh/", action: "打开官网", keywords: "otty terminal 终端 工具", description: "终端工具入口，适合补充命令行工作流和远程终端相关操作。" },
-      { title: "Fork", badge: "Git 工具", icon: "FK", tone: "blue", categories: ["tool"], visibility: "internal", url: "https://git-fork.com/", action: "打开官网", keywords: "fork git 可视化 工具 client", description: "Git 可视化客户端，适合查看分支、提交历史、diff 和处理代码版本管理。" },
-      { title: "KT智能拓客后台", badge: "后台", icon: "KT", tone: "green", categories: ["product"], visibility: "internal", url: "https://kt8899.org/", action: "进入后台", keywords: "kt智能拓客 后台 kt8899 核心产品", description: "公司核心产品后台入口，用于管理 KT 智能拓客相关业务和配置。" },
-      { title: "KT智能拓客官网", badge: "官网生产", icon: "KT", tone: "blue", categories: ["product"], visibility: "public", url: "https://www.ktai.im/", action: "打开官网", keywords: "kt智能拓客 官网 生产环境 ktai", description: "KT 智能拓客官网生产环境入口，用于查看正式对外展示页面。" },
+      { title: "Typeless", badge: "语音输入", icon: "TY", tone: "green", categories: ["tool"], visibility: "public", url: "https://www.typeless.com/", action: "打开工具", keywords: "typeless ai 语音输入 工具", description: "AI 语音输入工具，适合快速记录沟通内容、整理需求和提高输入效率。" },
+      { title: "Snipaste", badge: "截图工具", icon: "SP", tone: "blue", categories: ["tool"], visibility: "public", url: "https://www.snipaste.com/", action: "打开官网", keywords: "snipaste 截图 工具 screenshot", description: "截图和贴图工具，适合标注问题、记录页面状态和沟通视觉细节。" },
+      { title: "Wave", badge: "终端工具", icon: "WV", tone: "gold", categories: ["tool"], visibility: "public", url: "https://www.waveterm.dev/", action: "打开官网", keywords: "wave waveterm terminal 终端 工具", description: "现代终端工具，适合命令行工作、文件查看和 AI 辅助开发流程。" },
+      { title: "Otty", badge: "终端工具", icon: "OT", tone: "green", categories: ["tool"], visibility: "public", url: "https://otty.sh/", action: "打开官网", keywords: "otty terminal 终端 工具", description: "终端工具入口，适合补充命令行工作流和远程终端相关操作。" },
+      { title: "Fork", badge: "Git 工具", icon: "FK", tone: "blue", categories: ["tool"], visibility: "public", url: "https://git-fork.com/", action: "打开官网", keywords: "fork git 可视化 工具 client", description: "Git 可视化客户端，适合查看分支、提交历史、diff 和处理代码版本管理。" },
+      { title: "KT智能拓客官网", badge: "官网生产", icon: "KT", tone: "blue", categories: ["product"], visibility: "public", url: "https://www.ktai.im/", action: "打开官网", keywords: "kt智能拓客 官网 生产环境 ktai 公开产品", description: "KT 智能拓客官网，对外展示产品能力和品牌入口。" },
+      { title: "KT智能拓客下载", badge: "软件下载", icon: "KT", tone: "green", categories: ["product"], visibility: "public", url: "https://www.ktai.im/zh/download/", action: "打开下载页", keywords: "kt智能拓客 下载 安装包 windows mac 客户端 公开产品", description: "KT 智能拓客客户端官方下载页，按 Windows / Mac 获取安装包。" },
+      { title: "KT智能拓客计费", badge: "计费方式", icon: "KT", tone: "gold", categories: ["product"], visibility: "public", url: "https://www.ktai.im/zh/pricing/", action: "查看计费", keywords: "kt智能拓客 计费 定价 套餐 公开产品", description: "KT 智能拓客对外计费与套餐说明，方便客户了解价格和开通方式。" },
+      { title: "KT智能拓客后台", badge: "管理后台", icon: "KT", tone: "green", categories: ["product"], visibility: "public", url: "https://www.kt8899.org/", action: "进入后台", keywords: "kt智能拓客 后台 kt8899 核心产品 公开产品", description: "KT 智能拓客管理后台，客户和团队用来管理业务与配置。" },
       { title: "KT智能拓客测试站", badge: "官网测试", icon: "KT", tone: "gold", categories: ["product"], visibility: "internal", url: "https://test.ktai.im/", action: "打开测试站", keywords: "kt智能拓客 官网 测试环境 test ktai", description: "KT 智能拓客官网测试环境入口，用于上线前页面检查和功能验证。" },
-      { title: "ChatGPT", badge: "对话助手", icon: "G", tone: "gold", categories: ["external-ai"], visibility: "internal", url: "https://chatgpt.com/", action: "打开站点", keywords: "chatgpt openai ai 对话 写作 总结", description: "OpenAI 的 AI 对话入口，适合问答、写作、总结、代码辅助和方案分析。" },
-      { title: "OpenRouter", badge: "模型路由", icon: "OR", tone: "green", categories: ["external-ai"], visibility: "internal", url: "https://openrouter.ai/", action: "打开平台", keywords: "openrouter ai model router api 模型 中转", description: "多模型 API 聚合入口，适合测试不同模型、查看模型价格和统一接入。" },
-      { title: "Codex", badge: "AI 编程", icon: "CX", tone: "green", categories: ["external-ai"], visibility: "internal", url: "https://openai.com/codex/", action: "进入官网", keywords: "codex openai 编程 代码 代理 官方", description: "OpenAI 的 AI 编程助手入口，可用于代码阅读、修改、提交和工程任务协助。" },
-      { title: "OpenAI Platform", badge: "模型 API", icon: "OA", tone: "blue", categories: ["external-ai"], visibility: "internal", url: "https://platform.openai.com/docs", action: "查看文档", keywords: "openai platform api docs model gpt embedding", description: "OpenAI API 文档入口，适合查看模型调用、工具调用、Embedding 和 SDK 用法。" },
-      { title: "Cursor", badge: "AI IDE", icon: "CU", tone: "blue", categories: ["external-ai"], visibility: "internal", url: "https://cursor.com/", action: "打开官网", keywords: "cursor ai ide 编程 编辑器 代码", description: "AI 编程编辑器，适合在项目里直接补代码、改 bug、理解文件和重构模块。" },
-      { title: "豆包", badge: "国内 AI", icon: "DB", tone: "gold", categories: ["external-ai"], visibility: "internal", url: "https://www.doubao.com/", action: "打开站点", keywords: "豆包 doubao 字节跳动 ai 对话 国内", description: "字节跳动旗下 AI 助手，适合中文问答、写作、搜索、图片和视频生成。" },
-      { title: "千问", badge: "国内 AI", icon: "QW", tone: "green", categories: ["external-ai"], visibility: "internal", url: "https://www.qianwen.com/", action: "打开站点", keywords: "千问 qianwen 通义 阿里 ai qwen 国内", description: "阿里官方 AI 助手入口，适合中文搜索、总结、PPT、图片生成和办公场景。" },
-      { title: "Claude", badge: "AI 平台", icon: "CL", tone: "green", categories: ["external-ai"], visibility: "internal", url: "https://claude.ai/", action: "打开站点", keywords: "claude anthropic ai 对话 写作 分析", description: "Anthropic 的 AI 对话平台，适合长文本理解、写作、分析和代码解释。" },
-      { title: "Claude Code", badge: "AI 编程", icon: "CC", tone: "blue", categories: ["external-ai"], visibility: "internal", url: "https://www.anthropic.com/product/claude-code", action: "进入官网", keywords: "claude code anthropic 编程 文档 官方", description: "Anthropic 的 Claude Code 官网，适合了解代码库协作和编程代理能力。" },
-      { title: "Gemini", badge: "Google", icon: "GM", tone: "gold", categories: ["external-ai"], visibility: "internal", url: "https://gemini.google.com/", action: "打开站点", keywords: "gemini google ai 对话 多模态", description: "Google 的 AI 助手入口，适合结合 Google 生态做内容、资料和多模态处理。" },
+      { title: "ChatGPT", badge: "对话助手", icon: "G", tone: "gold", categories: ["external-ai"], visibility: "public", url: "https://chatgpt.com/", action: "打开站点", keywords: "chatgpt openai ai 对话 写作 总结", description: "OpenAI 的 AI 对话入口，适合问答、写作、总结、代码辅助和方案分析。" },
+      { title: "OpenRouter", badge: "模型路由", icon: "OR", tone: "green", categories: ["external-ai"], visibility: "public", url: "https://openrouter.ai/", action: "打开平台", keywords: "openrouter ai model router api 模型 中转", description: "多模型 API 聚合入口，适合测试不同模型、查看模型价格和统一接入。" },
+      { title: "Codex", badge: "AI 编程", icon: "CX", tone: "green", categories: ["external-ai"], visibility: "public", url: "https://openai.com/codex/", action: "进入官网", keywords: "codex openai 编程 代码 代理 官方", description: "OpenAI 的 AI 编程助手入口，可用于代码阅读、修改、提交和工程任务协助。" },
+      { title: "OpenAI Platform", badge: "模型 API", icon: "OA", tone: "blue", categories: ["external-ai"], visibility: "public", url: "https://platform.openai.com/docs", action: "查看文档", keywords: "openai platform api docs model gpt embedding", description: "OpenAI API 文档入口，适合查看模型调用、工具调用、Embedding 和 SDK 用法。" },
+      { title: "Cursor", badge: "AI IDE", icon: "CU", tone: "blue", categories: ["external-ai"], visibility: "public", url: "https://cursor.com/", action: "打开官网", keywords: "cursor ai ide 编程 编辑器 代码", description: "AI 编程编辑器，适合在项目里直接补代码、改 bug、理解文件和重构模块。" },
+      { title: "豆包", badge: "国内 AI", icon: "DB", tone: "gold", categories: ["external-ai"], visibility: "public", url: "https://www.doubao.com/", action: "打开站点", keywords: "豆包 doubao 字节跳动 ai 对话 国内", description: "字节跳动旗下 AI 助手，适合中文问答、写作、搜索、图片和视频生成。" },
+      { title: "千问", badge: "国内 AI", icon: "QW", tone: "green", categories: ["external-ai"], visibility: "public", url: "https://www.qianwen.com/", action: "打开站点", keywords: "千问 qianwen 通义 阿里 ai qwen 国内", description: "阿里官方 AI 助手入口，适合中文搜索、总结、PPT、图片生成和办公场景。" },
+      { title: "Claude", badge: "AI 平台", icon: "CL", tone: "green", categories: ["external-ai"], visibility: "public", url: "https://claude.ai/", action: "打开站点", keywords: "claude anthropic ai 对话 写作 分析", description: "Anthropic 的 AI 对话平台，适合长文本理解、写作、分析和代码解释。" },
+      { title: "Claude Code", badge: "AI 编程", icon: "CC", tone: "blue", categories: ["external-ai"], visibility: "public", url: "https://www.anthropic.com/product/claude-code", action: "进入官网", keywords: "claude code anthropic 编程 文档 官方", description: "Anthropic 的 Claude Code 官网，适合了解代码库协作和编程代理能力。" },
+      { title: "Gemini", badge: "Google", icon: "GM", tone: "gold", categories: ["external-ai"], visibility: "public", url: "https://gemini.google.com/", action: "打开站点", keywords: "gemini google ai 对话 多模态", description: "Google 的 AI 助手入口，适合结合 Google 生态做内容、资料和多模态处理。" },
     ];
 
     const filters = document.querySelector("#filters");
@@ -1440,13 +1441,13 @@
     const telegramHint = document.querySelector("#telegramHint");
     const recentStorageKey = "portalHub.recentSites.v1";
     const collapsedGroupsStorageKey = "portalHub.collapsedGroups.v1";
-    // Bearer 会话只放 sessionStorage；生产/本地都通过同源 /identity 反代访问 KT Identity
     const sessionStorageKey = "portalNav.identitySession.v1";
     const identityBaseUrl = "";
+    const internalRoles = new Set(["ADMIN", "FINANCE", "OPERATOR", "VIEWER"]);
     const maxRecentSites = 8;
     let activeFilter = "all";
-    let currentViewer = "public"; // public | internal
-    let currentSession = null; // { token, account, roles, viewer }
+    let currentViewer = "public";
+    let currentSession = null;
     let telegramPollTimer = null;
     let telegramPopup = null;
     let authBusy = false;
@@ -1456,7 +1457,7 @@
     }
 
     function getSiteId(site) {
-      return `${site.title}-${site.url}`.toLowerCase().replace(/[^a-z0-9一-龥]+/g, "-").replace(/^-|-$/g, "");
+      return `${site.title}-${site.url}`.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, "-").replace(/^-|-$/g, "");
     }
 
     function getSiteVisibility(site) {
@@ -1549,27 +1550,12 @@
 
     function isInternalFromRoles(roles) {
       if (!Array.isArray(roles) || roles.length === 0) return false;
-      const normalized = roles.map((role) => String(role || "").trim().toUpperCase());
-      return normalized.some((role) => (
-        role === "ADMIN"
-        || role === "OPERATOR"
-        || role === "FINANCE"
-        || role === "VIEWER"
-        || role.includes("ADMIN")
-        || role.includes("OPERATOR")
-        || role.includes("INTERNAL")
-        || role.includes("MEMBER")
-      ));
+      return roles.some((role) => internalRoles.has(String(role || "").trim().toUpperCase()));
     }
 
     function decideViewer(session) {
       if (!session?.token) return "public";
-      // V1：已登录且有账号，默认内部可见。
-      // 若后续要更严，可改为仅 isInternalFromRoles(session.roles) 才 internal。
-      if (Array.isArray(session.roles) && session.roles.length > 0) {
-        return isInternalFromRoles(session.roles) ? "internal" : "public";
-      }
-      return session.account?.id ? "internal" : "public";
+      return isInternalFromRoles(session.roles) ? "internal" : "public";
     }
 
     function setLoginError(message) {
@@ -1973,8 +1959,6 @@
         { match: /^Wave/, source: "https://www.waveterm.dev/", primary: "./assets/logos/wave.ico" },
         { match: /^Otty/, source: "https://otty.sh/", primary: "./assets/logos/otty.svg" },
         { match: /^Fork/, source: "https://git-fork.com/", primary: "./assets/logos/fork.ico" },
-        { match: /^KT OpenCode/, source: "https://opencode.ai/", primary: "./assets/logos/openai.ico" },
-        { match: /^OpenLess/, source: "https://openless.top/", primary: "./assets/logos/typeless.ico" },
         { match: /^KT智能拓客/, source: "https://www.ktai.im/", primary: "./assets/logos/ktai.png" },
         { match: /^ChatGPT/, source: "https://chatgpt.com/", primary: "./assets/logos/chatgpt.webp" },
         { match: /^OpenRouter/, source: "https://openrouter.ai/", primary: "./assets/logos/openrouter.ico" },
@@ -2146,9 +2130,9 @@
       let visibleCount = 0;
 
       cards.forEach((card) => {
-        const cardCategories = card.dataset.category.split(" ");
+        const categories = card.dataset.category.split(" ");
         const text = normalize(card.dataset.search);
-        const matchFilter = activeFilter === "all" || cardCategories.includes(activeFilter);
+        const matchFilter = activeFilter === "all" || categories.includes(activeFilter);
         const matchSearch = !query || text.includes(query);
         const isVisible = matchFilter && matchSearch;
 
